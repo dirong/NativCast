@@ -7,9 +7,9 @@ then
   exit 0
 fi
 
-echo "This script will install RaspberryCast"
+echo "This script will install NativCast"
 
-read -p "Which user do you want to install RaspberryCast as? (Leave blank to set to default): " USER
+read -p "Which user do you want to install NativCast as? (Leave blank to set to default): " USER
 
 if ! [ -n "$USER" ]; then
     echo "Setting user to default value 'pi'."
@@ -63,8 +63,8 @@ echo "Cloning project from GitHub.."
 echo ""
 echo "============================================================"
 
-su - $USER -c "git clone https://github.com/vincelwt/RaspberryCast.git"
-chmod +x ./RaspberryCast/RaspberryCast.sh
+su - $USER -c "git clone https://github.com/rudcode/NativCast.git"
+chmod +x ./NativCast/NativCast.sh
 
 echo ""
 echo "============================================================"
@@ -78,7 +78,7 @@ chmod 666 /dev/tty1
 
 #Add to rc.local startup
 sed -i '$ d' /etc/rc.local
-echo "su - $USER -c \"cd ./RaspberryCast/ && ./RaspberryCast.sh start\"" >> /etc/rc.local
+echo "su - $USER -c \"cd ./NativCast/ && ./NativCast.sh start\"" >> /etc/rc.local
 echo "exit 0" >> /etc/rc.local
 
 #Adding right to current pi user to shutdown
@@ -91,7 +91,7 @@ rm setup.sh
 
 echo "============================================================"
 echo "Setup was successful."
-echo "Do not delete the 'RaspberryCast' folder as it contains all application data!"
+echo "Do not delete the 'NativCast' folder as it contains all application data!"
 echo "Rebooting system now..."
 echo "============================================================"
 
