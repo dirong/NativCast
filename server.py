@@ -202,10 +202,10 @@ def video():
 
 @app.route('/image')	
 def image():
-	url = request.query_string
+    url = request.query_string
     logger.info('Received image URL to cast: '+url)
-	launchimage(url)
-	return "1"
+    launchimage(url)
+    return "1"
 
 
 @app.route('/sound')
