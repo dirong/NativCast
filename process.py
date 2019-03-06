@@ -10,20 +10,20 @@ logger = logging.getLogger("RaspberryCast")
 volume = 0
 
 def launchimage(url):
-	os.system("echo -n q > /tmp/cmd &") #Kill previous instance of OMX
+    os.system("echo -n q > /tmp/cmd &") #Kill previous instance of OMX
 
-	if "data:image/" in url:
-		if "base64," in url:
-			logger.info("Base64 Image Data Received")
-			b64img = base64.b64decode(url.split(',')[1])
-			imgfile = open('download/image', 'wb')
-			imgfile.write(b64img)
-			imgfile.close()
-	else:
-		logger.info("Url Image Data Received")
-		os.system("wget -O download/image " + url)
+    if "data:image/" in url:
+        if "base64," in url:
+            logger.info("Base64 Image Data Received")
+            b64img = base64.b64decode(url.split(',')[1])
+            imgfile = open('download/image', 'wb')
+            imgfile.write(b64img)
+            imgfile.close()
+    else:
+        logger.info("Url Image Data Received")
+        os.system("wget -O download/image " + url)
 
-	os.system("sudo fbi -T 1 -a --noverbose download/image")
+    os.system("sudo fbi -T 1 -a --noverbose download/image")
 
 def launchvideo(url, config, sub=False):
     setState("2")

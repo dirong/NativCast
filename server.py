@@ -161,7 +161,7 @@ def queue():
                     (".jpeg" in url or ".png" in url or 
                     ".jpg" in url or "data:image" in url) and 
                     "youtu" not in url):
-				launchimage(url)
+                launchimage(url)
             else:
                 launchvideo(url, config, sub=False)
             return "1"
@@ -200,7 +200,7 @@ def video():
         return "1"
 
 
-@app.route('/image')	
+@app.route('/image')
 def image():
     url = request.query_string
     logger.info('Received image URL to cast: '+url)
