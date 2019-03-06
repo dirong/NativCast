@@ -50,15 +50,52 @@ function mkrequest(url, response) {
 	}
 }
 
+function mkimgrequest(url, response) {
+	try {
+		var newURL = "http://"+localStorage.getItem('raspip')+":2020"+url;
+		if (response == 1) {
+			notif("RaspberryCast", "Processing Image.");
+		}
+		var req = new XMLHttpRequest();
+		req.open('GET', newURL, true);
+		req.onreadystatechange = function (aEvt) {
+			if (req.readyState == 4) {
+				if (req.status == 200) {
+					if (response == 1) {
+						if (req.responseText == "1") {
+							notif("RaspberryCast", "Image should now displayed.");
+						}
+						else {
+							notif("Error", "Please make sure the link is compatible");
+						}
+					}
+				} else {
+					chrome.notifications.clear('notif', function(id) { console.log("Last error:", chrome.runtime.lastError); });
+					alert("Error during requesting from server ! Make sure the ip/port are corrects, and the server is running.");
+				}
+			}
+		};
+		req.send(null);
+	} 
+	catch(err) {
+		alert("Error ! Make sure the ip/port are corrects, and the server is running.")
+		return "wrong";
+	}
+}
+
 
 chrome.contextMenus.onClicked.addListener(function(info) {
-	var url_encoded_url = encodeURIComponent(info.linkUrl);
-	if (localStorage.cmFunction == "stream") {
-		mkrequest("/stream?url="+url_encoded_url+"&slow="+localStorage.modeslow, 1);
-	} else {
-		mkrequest("/queue?url="+url_encoded_url+"&slow="+localStorage.modeslow, 0);
+	if(info.menuItemId == "Castnow") {
+		var url_encoded_url = encodeURIComponent(info.linkUrl);
+		if (localStorage.cmFunction == "stream") {
+			mkrequest("/stream?url="+url_encoded_url+"&slow="+localStorage.modeslow, 1);
+		} else {
+			mkrequest("/queue?url="+url_encoded_url+"&slow="+localStorage.modeslow, 0);
+		}
 	}
-	
+	else {
+		mkimgrequest("/image?"+info.srcUrl, 1);
+	}
 });
 
 chrome.runtime.onInstalled.addListener(function() {
@@ -67,7 +104,19 @@ chrome.runtime.onInstalled.addListener(function() {
 
 chrome.contextMenus.create({
 	id: "Castnow",
-	title: "Send to Rpi",
+	title: "Send Video to Rpi",
 	contexts: ["link"]
 });
+
+chrome.contextMenus.create({
+	id: "Castimagenow",
+	title: "Send Image to Rpi",
+	contexts: ["image"]
+}, function(info) {
+	var str = "undefined";
+	if(str.localeCompare(info.srcUrl) == 0) {
+		chrome.contextMenus.remove("Castimagenow");
+	}
+});
+
 
