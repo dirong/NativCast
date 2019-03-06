@@ -20,7 +20,7 @@ function mkrequest(url, response) {
 	try {
 		var newURL = "http://"+localStorage.getItem('raspip')+":2020"+url;
 		if (response == 1) {
-			notif("RaspberryCast", "Processing video. Please wait ~ 10 seconds.");
+			notif("NativCast", "Processing video. Please wait ~ 10 seconds.");
 		}
 		var req = new XMLHttpRequest();
 		req.open('GET', newURL, true);
@@ -29,9 +29,9 @@ function mkrequest(url, response) {
 				if (req.status == 200) {
 					if (response == 1) {
 						if (req.responseText == "1") {
-							notif("RaspberryCast", "Video should now start playing.");	
+							notif("NativCast", "Video should now start playing.");	
 						} else if (req.responseText == "2") {
-							notif("RaspberryCast", "Video has been added to queue.");	
+							notif("NativCast", "Video has been added to queue.");	
 						} else {
 							notif("Error", "Please make sure the link is compatible");
 						}
@@ -54,7 +54,7 @@ function mkimgrequest(url, response) {
 	try {
 		var newURL = "http://"+localStorage.getItem('raspip')+":2020"+url;
 		if (response == 1) {
-			notif("RaspberryCast", "Processing Image.");
+			notif("NativCast", "Processing Image.");
 		}
 		var req = new XMLHttpRequest();
 		req.open('GET', newURL, true);
@@ -63,7 +63,7 @@ function mkimgrequest(url, response) {
 				if (req.status == 200) {
 					if (response == 1) {
 						if (req.responseText == "1") {
-							notif("RaspberryCast", "Image should now displayed.");
+							notif("NativCast", "Image should now displayed.");
 						}
 						else {
 							notif("Error", "Please make sure the link is compatible");
@@ -104,13 +104,13 @@ chrome.runtime.onInstalled.addListener(function() {
 
 chrome.contextMenus.create({
 	id: "Castnow",
-	title: "Send Video to Rpi",
+	title: "Cast Video",
 	contexts: ["link"]
 });
 
 chrome.contextMenus.create({
 	id: "Castimagenow",
-	title: "Send Image to Rpi",
+	title: "Cast Image",
 	contexts: ["image"]
 }, checkImageUrl
 );
@@ -121,3 +121,4 @@ function checkImageUrl(info) {
 		chrome.contextMenus.remove("Castimagenow");
 	}
 }
+

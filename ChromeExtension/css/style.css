@@ -1,6 +1,16 @@
+html, body{
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	background: #ededee;
+	image-rendering: crisp-edges;
+}
+
 #whole {
+	background: #ededee;
 	width: 130px ;
-	margin: auto; 
+	margin: 0px; 
+	padding: 0px;
 	text-align: center; 
 }
 
@@ -15,7 +25,7 @@
 	position: fixed;
 	top: 30px;
 	right: 5px;
-	background-color: red;
+	background-color: black;
 }
 
 .fifty {
@@ -31,4 +41,8 @@
 
 .form-control {
 	max-width: 105px;
+}
+
+.image-button:hover {
+	opacity: 0.7;
 }
