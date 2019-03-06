@@ -157,6 +157,11 @@ def queue():
                     ("youtu" in url and "list=" in url) or
                     ("soundcloud" in url and "/sets/" in url)):
                 playlist(url, True, config)
+            elif (
+                    (".jpeg" in url or ".png" in url or 
+                    ".jpg" in url or "data:image" in url) and 
+                    "youtu" not in url):
+				launchimage(url)
             else:
                 launchvideo(url, config, sub=False)
             return "1"
@@ -193,6 +198,14 @@ def video():
         logger.info('Command : long backward')
         os.system("echo -n $'\x1b\x5b\x42' > /tmp/cmd &")
         return "1"
+
+
+@app.route('/image')	
+def image():
+	url = request.query_string
+    logger.info('Received image URL to cast: '+url)
+	launchimage(url)
+	return "1"
 
 
 @app.route('/sound')
