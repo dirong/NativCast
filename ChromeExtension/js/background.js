@@ -112,11 +112,12 @@ chrome.contextMenus.create({
 	id: "Castimagenow",
 	title: "Send Image to Rpi",
 	contexts: ["image"]
-}, function(info) {
+}, checkImageUrl
+);
+
+function checkImageUrl(info) {
 	var str = "undefined";
 	if(str.localeCompare(info.srcUrl) == 0) {
 		chrome.contextMenus.remove("Castimagenow");
 	}
-});
-
-
+}
