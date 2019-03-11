@@ -12,7 +12,7 @@ except ImportError:
     from urllib import urlretrieve
 from bottle import Bottle, SimpleTemplate, request, response, \
                    template, run, static_file
-from process import launchvideo, queuevideo, playlist, \
+from process import launchimage, launchvideo, queuevideo, playlist, \
                     setState, getState, setVolume
 
 if len(sys.argv) > 1:
