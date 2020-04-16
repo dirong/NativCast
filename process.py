@@ -17,16 +17,20 @@ def playeraction(action):
     global player
     try:
         player.action(action)
+    except Exception as e:
+        print(e)
     except:
-        pass
+        raise
 
 
 def launchimage(url):
     global player
     try:
         player.quit()  #Kill previous instance of OMX
+    except Exception as e:
+        print(e)
     except:
-        pass
+        raise
 
     try:
         os.system("rm download/image")
@@ -43,8 +47,10 @@ def launchimage(url):
         else:
             logger.info("Url Image Data Received")
             os.system("wget -O download/image " + url)
+    except Exception as e:
+        print(e)
     except:
-        pass
+        raise
 
     os.system("sudo fbi -T 1 -a --noverbose download/image")
 
@@ -54,8 +60,10 @@ def launchvideo(url, config, sub=False):
 
     try:
         player.quit()  #Kill previous instance of OMX
+    except Exception as e:
+        print(e)
     except:
-        pass
+        raise
 
     if config["new_log"]:
         os.system("sudo fbi -T 1 -a --noverbose images/processing.jpg")
@@ -204,8 +212,10 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
     try:
         while not player.playback_status() == "Stopped":  # Wait until video finished or stopped
             time.sleep(0.5)
+    except Exception as e:
+        print(e)
     except:
-        pass
+        raise
 
     if getState() != "2":  # In case we are again in the launchvideo function
         setState("0")
