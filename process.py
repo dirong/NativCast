@@ -28,16 +28,23 @@ def launchimage(url):
     except:
         pass
 
-    if "data:image/" in url:
-        if "base64," in url:
-            logger.info("Base64 Image Data Received")
-            b64img = base64.b64decode(url.split(',')[1])
-            imgfile = open('download/image', 'wb')
-            imgfile.write(b64img)
-            imgfile.close()
-    else:
-        logger.info("Url Image Data Received")
-        os.system("wget -O download/image " + url)
+    try:
+        os.system("rm download/image")
+        if "data:image/" in url:
+            if "base64," in url:
+                logger.info("Base64 Image Data Received")
+                data = url.split(',')[1].strip()
+                pad = len(data) % 4
+                data += "=" * pad
+                b64img = base64.b64decode(data)
+                imgfile = open('download/image', 'wb')
+                imgfile.write(b64img)
+                imgfile.close()
+        else:
+            logger.info("Url Image Data Received")
+            os.system("wget -O download/image " + url)
+    except:
+        pass
 
     os.system("sudo fbi -T 1 -a --noverbose download/image")
 
