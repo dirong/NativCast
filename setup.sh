@@ -39,7 +39,7 @@ echo "Installing necessary dependencies... (This could take a while)"
 echo ""
 echo "============================================================"
 
-apt-get install -y lsof python-pip git wget omxplayer libnss-mdns fbi
+apt-get install -y lsof python3-pip git wget omxplayer libnss-mdns fbi
 echo "============================================================"
 
 if [ "$?" = "1" ]
@@ -48,7 +48,7 @@ then
   exit 0
 fi
 
-python -m pip install youtube-dl bottle livestreamer
+su - $USER -c "python3 -m pip install --user youtube-dl bottle livestreamer"
 
 if [ "$?" = "1" ]
 then
