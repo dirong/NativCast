@@ -13,7 +13,9 @@ except ImportError:
 from bottle import Bottle, SimpleTemplate, request, response, \
                    template, run, static_file
 from process import launchimage, launchvideo, queuevideo, playlist, \
-                    setState, getState, setVolume
+                    setState, getState, setVolume, playeraction
+
+from omxplayer.keys import *
 
 if len(sys.argv) > 1:
     config_file = sys.argv[1]
@@ -40,13 +42,6 @@ ch.setLevel(logging.INFO)
 formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 root.addHandler(ch)
-
-try:
-    os.mkfifo("/tmp/cmd")
-except OSError as e:
-    # 17 means the file already exists.
-    if e.errno != 17:
-        raise
 
 if config["new_log"]:
     os.system("sudo fbi -T 1 --noverbose -a  images/ready.jpg")
@@ -176,27 +171,27 @@ def video():
     control = request.query['control']
     if control == "pause":
         logger.info('Command : pause')
-        os.system("echo -n p > /tmp/cmd &")
+        playeraction(PAUSE)
         return "1"
     elif control in ["stop", "next"]:
         logger.info('Command : stop video')
-        os.system("echo -n q > /tmp/cmd &")
+        playeraction(EXIT)
         return "1"
     elif control == "right":
         logger.info('Command : forward')
-        os.system("echo -n $'\x1b\x5b\x43' > /tmp/cmd &")
+        playeraction(SEEK_FORWARD_SMALL)
         return "1"
     elif control == "left":
         logger.info('Command : backward')
-        os.system("echo -n $'\x1b\x5b\x44' > /tmp/cmd &")
+        playeraction(SEEK_BACK_SMALL)
         return "1"
     elif control == "longright":
         logger.info('Command : long forward')
-        os.system("echo -n $'\x1b\x5b\x41' > /tmp/cmd &")
+        playeraction(SEEK_FORWARD_LARGE)
         return "1"
     elif control == "longleft":
         logger.info('Command : long backward')
-        os.system("echo -n $'\x1b\x5b\x42' > /tmp/cmd &")
+        playeraction(SEEK_BACK_LARGE)
         return "1"
 
 
@@ -213,10 +208,10 @@ def sound():
     vol = request.query['vol']
     if vol == "more":
         logger.info('REMOTE: Command : Sound ++')
-        os.system("echo -n + > /tmp/cmd &")
+        playeraction(INCREASE_VOLUME)
     elif vol == "less":
         logger.info('REMOTE: Command : Sound --')
-        os.system("echo -n - > /tmp/cmd &")
+        playeraction(DECREASE_VOLUME)
     setVolume(vol)
     return "1"
 

@@ -1,16 +1,32 @@
 import os
 import sys
+import time
 import json
 import base64
 import logging
 import threading
 import youtube_dl
 
+from omxplayer.player import OMXPlayer
+
 logger = logging.getLogger("RaspberryCast")
 volume = 0
+player = None
+
+def playeraction(action):
+    global player
+    try:
+        player.action(action)
+    except:
+        pass
+
 
 def launchimage(url):
-    os.system("echo -n q > /tmp/cmd &") #Kill previous instance of OMX
+    global player
+    try:
+        player.quit()  #Kill previous instance of OMX
+    except:
+        pass
 
     if "data:image/" in url:
         if "base64," in url:
@@ -25,10 +41,14 @@ def launchimage(url):
 
     os.system("sudo fbi -T 1 -a --noverbose download/image")
 
+
 def launchvideo(url, config, sub=False):
     setState("2")
 
-    os.system("echo -n q > /tmp/cmd &")  # Kill previous instance of OMX
+    try:
+        player.quit()  #Kill previous instance of OMX
+    except:
+        pass
 
     if config["new_log"]:
         os.system("sudo fbi -T 1 -a --noverbose images/processing.jpg")
@@ -42,8 +62,6 @@ def launchvideo(url, config, sub=False):
             kwargs=dict(width=config["width"], height=config["height"],
                         new_log=config["new_log"]))
     thread.start()
-
-    os.system("echo . > /tmp/cmd &")  # Start signal for OMXplayer
 
 
 def queuevideo(url, config, onlyqueue=False):
@@ -60,7 +78,6 @@ adding to queue.')
             kwargs=dict(width=config["width"], height=config["height"],
                         new_log=config["new_log"]))
         thread.start()
-        os.system("echo . > /tmp/cmd &")  # Start signal for OMXplayer
     else:
         if out is not None:
             with open('video.queue', 'a') as f:
@@ -158,6 +175,7 @@ def playlistToQueue(url, config):
 
 
 def playWithOMX(url, sub, width="", height="", new_log=False):
+    global player
     logger.info("Starting OMXPlayer now.")
 
     logger.info("Attempting to read resolution from configuration file.")
@@ -168,19 +186,19 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
         resolution = " --win '0 0 {0} {1}'".format(width, height)
 
     setState("1")
+    args = "-b" + resolution + " --vol " + str(volume)
     if sub:
-        os.system(
-            "omxplayer -b '" + url + "'" + resolution +
-            " --vol " + str(volume) +
-            " --subtitles subtitle.srt < /tmp/cmd"
-        )
+        player = OMXPlayer(url, args + " --subtitles subtitle.srt")
     elif url is None:
         pass
     else:
-        os.system(
-            "omxplayer -b '" + url + "' " + resolution + " --vol " +
-            str(volume) + " < /tmp/cmd"
-        )
+        player = OMXPlayer(url, args)
+
+    try:
+        while not player.playback_status() == "Stopped":  # Wait until video finished or stopped
+            time.sleep(0.5)
+    except:
+        pass
 
     if getState() != "2":  # In case we are again in the launchvideo function
         setState("0")
@@ -199,7 +217,6 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
                                     new_log=new_log),
                 )
                 thread.start()
-                os.system("echo . > /tmp/cmd &")  # Start signal for OMXplayer
             else:
                 logger.info("Playlist empty, skipping.")
                 if new_log:
