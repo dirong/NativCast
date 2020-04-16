@@ -18,6 +18,6 @@
 
    "manifest_version": 2,
    "name": "NativCast",
-   "permissions": [ "contextMenus", "tabs", "notifications" ],
+   "permissions": [ "contextMenus", "tabs", "notifications", "<all_urls>" ],
    "version": "1.3.0"
 }

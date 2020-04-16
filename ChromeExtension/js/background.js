@@ -51,36 +51,41 @@ function mkrequest(url, response) {
 }
 
 function mkimgrequest(url, response) {
-	try {
-		var newURL = "http://"+localStorage.getItem('raspip')+":2020"+url;
-		if (response == 1) {
-			notif("NativCast", "Processing Image.");
-		}
-		var req = new XMLHttpRequest();
-		req.open('GET', newURL, true);
-		req.onreadystatechange = function (aEvt) {
-			if (req.readyState == 4) {
-				if (req.status == 200) {
-					if (response == 1) {
-						if (req.responseText == "1") {
-							notif("NativCast", "Image should now displayed.");
-						}
-						else {
-							notif("Error", "Please make sure the link is compatible");
-						}
-					}
-				} else {
-					chrome.notifications.clear('notif', function(id) { console.log("Last error:", chrome.runtime.lastError); });
-					alert("Error during requesting from server ! Make sure the ip/port are corrects, and the server is running.");
-				}
-			}
-		};
-		req.send(null);
-	} 
-	catch(err) {
-		alert("Error ! Make sure the ip/port are corrects, and the server is running.")
-		return "wrong";
-	}
+    console.log(url);
+    toDataURL(url, function(base64img) {
+        try {
+            var newURL = "http://"+localStorage.getItem('raspip')+":2020/image";
+            if (response == 1) {
+                notif("NativCast", "Processing Image.");
+            }
+            var req = new XMLHttpRequest();
+            req.open('POST', newURL, true);
+            req.onreadystatechange = function (aEvt) {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        if (response == 1) {
+                            if (req.responseText == "1") {
+                                notif("NativCast", "Image should now displayed.");
+                            }
+                            else {
+                                notif("Error", "Please make sure the link is compatible");
+                            }
+                        }
+                    } else {
+                        chrome.notifications.clear('notif', function(id) { console.log("Last error:", chrome.runtime.lastError); });
+                        alert("Error during requesting from server ! Make sure the ip/port are corrects, and the server is running.");
+                    }
+                }
+            };
+            data = base64img.split(",");
+            type = data[0].split(";");
+            req.send("data="+encodeURIComponent(base64img));
+        } 
+        catch(err) {
+            alert("Error ! Make sure the ip/port are corrects, and the server is running.")
+            return "wrong";
+        }
+    });
 }
 
 
@@ -94,7 +99,7 @@ chrome.contextMenus.onClicked.addListener(function(info) {
 		}
 	}
 	else {
-		mkimgrequest("/image?"+info.srcUrl, 1);
+		mkimgrequest(info.srcUrl, 1);
 	}
 });
 
@@ -122,3 +127,21 @@ function checkImageUrl(info) {
 	}
 }
 
+function toDataURL(url, callback) {
+    if(url.includes("data:image")) {
+        callback(url);
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                callback(reader.result);
+            }
+            reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.send();
+    }
+}
