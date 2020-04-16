@@ -201,6 +201,7 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
         resolution = " --win '0 0 {0} {1}'".format(width, height)
 
     setState("1")
+    os.system("sudo fbi -T 1 -a --noverbose images/ready.jpg")
     args = "-b" + resolution + " --vol " + str(volume)
     if sub:
         player = OMXPlayer(url, args + " --subtitles subtitle.srt")
@@ -236,8 +237,6 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
                 thread.start()
             else:
                 logger.info("Playlist empty, skipping.")
-                if new_log:
-                    os.system("sudo fbi -T 1 -a --noverbose images/ready.jpg")
 
 
 def setState(state):
