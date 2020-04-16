@@ -11,7 +11,7 @@ except ImportError:
     # this works in Python2
     from urllib import urlretrieve
 from bottle import Bottle, SimpleTemplate, request, response, \
-                   template, run, static_file
+                   template, run, static_file, BaseRequest
 from process import launchimage, launchvideo, queuevideo, playlist, \
                     setState, getState, setVolume, playeraction
 
@@ -23,6 +23,9 @@ else:
     config_file = 'raspberrycast.conf'
 with open(config_file) as f:
       config = json.load(f)
+
+# Maximum size of memory buffer for body in bytes
+BaseRequest.MEMFILE_MAX = 20 * 1024 * 1024  # 20MB
 
 # Setting log
 logging.basicConfig(
@@ -195,9 +198,9 @@ def video():
         return "1"
 
 
-@app.route('/image')
+@app.post('/image')
 def image():
-    url = request.query_string
+    url = request.forms.get('data')
     logger.info('Received image URL to cast: '+url)
     launchimage(url)
     return "1"
