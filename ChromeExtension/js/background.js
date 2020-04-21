@@ -121,10 +121,14 @@ chrome.contextMenus.create({
 );
 
 function checkImageUrl(info) {
-	var str = "undefined";
-	if(str.localeCompare(info.srcUrl) == 0) {
-		chrome.contextMenus.remove("Castimagenow");
-	}
+    var str = "undefined";
+    try {
+        if(str.localeCompare(info.srcUrl) == 0) {
+            chrome.contextMenus.remove("Castimagenow");
+        }
+    }
+    catch (err) {
+    }
 }
 
 function toDataURL(url, callback) {
