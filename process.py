@@ -3,6 +3,7 @@ import sys
 import time
 import json
 import base64
+import pygame
 import logging
 import threading
 import youtube_dl
@@ -12,6 +13,73 @@ from omxplayer.player import OMXPlayer
 logger = logging.getLogger("RaspberryCast")
 volume = 0
 player = None
+
+DIR_PATH = os.path.dirname(os.path.abspath(__file__))
+
+# Pygame Initialization
+pygame.init()
+pygame.mixer.quit()
+pygame.mouse.set_visible(0)
+screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+
+def aspectscale(img, size):
+    ix,iy = img.get_size()
+    bx, by = size
+
+    if ix > iy:
+        # fit to width
+        scale_factor = bx/float(ix)
+        sy = scale_factor * iy
+        if sy > by:
+            scale_factor = by/float(iy)
+            sx = scale_factor * ix
+            sy = by
+        else:
+            sx = bx
+    else:
+        # fit to height
+        scale_factor = by/float(iy)
+        sx = scale_factor * ix
+        if sx > bx:
+            scale_factor = bx/float(ix)
+            sx = bx
+            sy = scale_factor * iy
+        else:
+            sy = by
+
+    return pygame.transform.scale(img, (int(sx), int(sy)))
+
+
+def displaysurface(surface):
+    x_centered = screen.get_size()[0] / 2 - surface.get_size()[0] / 2
+    y_centered = screen.get_size()[1] / 2 - surface.get_size()[1] / 2
+
+    screen.blit(surface, (x_centered, y_centered))
+    pygame.display.update()
+
+
+def displayimage(imagefilename):
+    surface = pygame.Surface(screen.get_size()).convert_alpha()
+    img = aspectscale(pygame.image.load(imagefilename), (screen.get_size()))
+    x_centered = screen.get_size()[0] / 2 - img.get_size()[0] / 2
+    y_centered = screen.get_size()[1] / 2 - img.get_size()[1] / 2
+    surface.blit(img, (x_centered, y_centered))
+    displaysurface(surface)
+
+
+ready_surf = pygame.Surface(screen.get_size())
+ready_img = aspectscale(pygame.image.load(os.path.join(DIR_PATH, "images", "ready.jpg")), (screen.get_size()))
+ready_img_x_centered = screen.get_size()[0] / 2 - ready_img.get_size()[0] / 2
+ready_img_y_centered = screen.get_size()[1] / 2 - ready_img.get_size()[1] / 2
+ready_surf.blit(ready_img, (ready_img_x_centered, ready_img_y_centered))
+
+processing_surf = pygame.Surface(screen.get_size())
+processing_img = aspectscale(pygame.image.load(os.path.join(DIR_PATH, "images", "processing.jpg")), (screen.get_size()))
+processing_img_x_centered = screen.get_size()[0] / 2 - processing_img.get_size()[0] / 2
+processing_img_y_centered = screen.get_size()[1] / 2 - processing_img.get_size()[1] / 2
+processing_surf.blit(processing_img, (processing_img_x_centered, processing_img_y_centered))
+
+displaysurface(ready_surf)
 
 def playeraction(action):
     global player
@@ -52,7 +120,7 @@ def launchimage(url):
     except:
         raise
 
-    os.system("sudo fbi -T 1 -a --noverbose download/image")
+    displayimage(os.path.join(DIR_PATH, "download", "image"))
 
 
 def launchvideo(url, config, sub=False):
@@ -66,7 +134,7 @@ def launchvideo(url, config, sub=False):
         raise
 
     if config["new_log"]:
-        os.system("sudo fbi -T 1 -a --noverbose images/processing.jpg")
+        displaysurface(processing_surf)
 
     logger.info('Extracting source video URL...')
     out = return_full_url(url, sub=sub, slow_mode=config["slow_mode"])
@@ -201,7 +269,7 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
         resolution = " --win '0 0 {0} {1}'".format(width, height)
 
     setState("1")
-    os.system("sudo fbi -T 1 -a --noverbose images/ready.jpg")
+    displaysurface(ready_surf)
     args = "-b" + resolution + " --vol " + str(volume)
     if sub:
         player = OMXPlayer(url, args + " --subtitles subtitle.srt")

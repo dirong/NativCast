@@ -46,9 +46,6 @@ formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 root.addHandler(ch)
 
-if config["new_log"]:
-    os.system("sudo fbi -T 1 --noverbose -a  images/ready.jpg")
-
 setState("0")
 open('video.queue', 'w').close()  # Reset queue
 logger.info('Server successfully started!')
@@ -246,3 +243,4 @@ def webstate():
     return currentState
 
 run(app, reloader=False, host='0.0.0.0', debug=True, quiet=True, port=2020)
+
