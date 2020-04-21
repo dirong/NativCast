@@ -8,6 +8,7 @@ import logging
 import threading
 import youtube_dl
 
+from PIL import Image
 from omxplayer.player import OMXPlayer
 
 logger = logging.getLogger("RaspberryCast")
@@ -60,7 +61,11 @@ def displaysurface(surface):
 
 def displayimage(imagefilename):
     surface = pygame.Surface(screen.get_size()).convert_alpha()
-    img = aspectscale(pygame.image.load(imagefilename), (screen.get_size()))
+    pil_img = Image.open(imagefilename).convert('RGB')
+    mode = pil_img.mode
+    size = pil_img.size
+    data = pil_img.tobytes()
+    img = aspectscale(pygame.image.fromstring(data, size, mode), (screen.get_size()))
     x_centered = screen.get_size()[0] / 2 - img.get_size()[0] / 2
     y_centered = screen.get_size()[1] / 2 - img.get_size()[1] / 2
     surface.blit(img, (x_centered, y_centered))
