@@ -48,7 +48,7 @@ then
   exit 0
 fi
 
-su - $USER -c "python3 -m pip install --user youtube-dl bottle livestreamer omxplayer-wrapper"
+su - $USER -c "python3 -m pip install --user youtube-dl bottle livestreamer omxplayer-wrapper pillow"
 
 if [ "$?" = "1" ]
 then
