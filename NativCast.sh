@@ -16,7 +16,7 @@ if [ $1 = "start" ]; then
 	echo "Checking for updates."
 	git pull
 	echo "Starting RaspberryCast server."
-	./server.py &
+	export DISPLAY=:0 && ./server.py &
 	echo "Done."
 	exit
 elif [ $1 = "stop" ] ; then
@@ -27,9 +27,9 @@ elif [ $1 = "stop" ] ; then
 		exit 0
 	fi
 	echo "Killing RaspberryCast..."
-	killall omxplayer.bin >/dev/null 2>&1
-	killall python3 >/dev/null 2>&1
-	kill $(lsof -t -i :2020) >/dev/null 2>&1
+	pkill -f "server.py" -9 >/dev/null 2>&1
+	killall omxplayer.bin -9 >/dev/null 2>&1
+	kill $(lsof -t -i :2020) -9 >/dev/null 2>&1
 	rm *.srt >/dev/null 2>&1
 	echo "Done."
 	exit
