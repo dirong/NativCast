@@ -197,9 +197,9 @@ def video():
 
 @app.post('/image')
 def image():
-    url = request.forms.get('data')
-    logger.info('Received image URL to cast: '+url)
-    launchimage(url)
+    data = request.forms.get('data')
+    logger.info('Received image to cast: %d byte' % len(data))
+    launchimage(data)
     return "1"
 
 
