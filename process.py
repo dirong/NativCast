@@ -18,8 +18,7 @@ player = None
 DIR_PATH = os.path.dirname(os.path.abspath(__file__))
 
 # Pygame Initialization
-pygame.init()
-pygame.mixer.quit()
+pygame.display.init()
 pygame.mouse.set_visible(0)
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 
