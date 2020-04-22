@@ -4,6 +4,7 @@ import time
 import json
 import base64
 import pygame
+import signal
 import logging
 import threading
 import youtube_dl
@@ -16,6 +17,12 @@ volume = 0
 player = None
 
 DIR_PATH = os.path.dirname(os.path.abspath(__file__))
+
+# SIGTERM handler
+def terminationhandler(signum, frame):
+    sys.exit(0)
+
+signal.signal(signal.SIGTERM, terminationhandler)
 
 # Pygame Initialization
 pygame.display.init()
