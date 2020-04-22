@@ -1,0 +1,17 @@
+[Unit]
+Description=NativCast
+After=network.target
+
+[Service]
+User=pi
+Group=pi
+Restart=always
+RestartSec=10
+PermissionsStartOnly=true
+Environment="DISPLAY=:0"
+WorkingDirectory=/home/pi/NativCast
+ExecStartPre=/usr/bin/git pull
+ExecStart=/home/pi/NativCast/server.py
+
+[Install]
+WantedBy=multi-user.target
