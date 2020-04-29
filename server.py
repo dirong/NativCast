@@ -13,7 +13,7 @@ except ImportError:
 from bottle import Bottle, SimpleTemplate, request, response, \
                    template, run, static_file, BaseRequest
 from process import launchimage, launchvideo, queuevideo, playlist, \
-                    setState, getState, setVolume, playeraction
+                    setState, getState, setVolume, playeraction, launchhome
 
 from omxplayer.keys import *
 
@@ -71,6 +71,10 @@ def remote():
     logger.debug('Remote page requested.')
     return template('remote')
 
+@app.route('/home')
+def home():
+    launchhome()
+    return "1"
 
 @app.route('/stream')
 def stream():

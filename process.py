@@ -114,6 +114,18 @@ def playeraction(action):
         raise
 
 
+def launchhome():
+    global player
+    try:
+        player.quit()  #Kill previous instance of OMX
+    except Exception as e:
+        print(e)
+    except:
+        raise
+
+    displaysurface(ready_surf, True)
+
+
 def launchimage(url):
     global player
     try:
