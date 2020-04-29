@@ -16,6 +16,11 @@ function handlers() {
 		window.close();	
 	});	
 
+    $( "#homebtn" ).click(function() {
+		chrome.extension.getBackgroundPage().mkrequest("/home", 0);
+		window.close();
+	});	
+
 	$( "#pause" ).click(function() {
 		chrome.extension.getBackgroundPage().mkrequest("/video?control=pause", 0);
 	});	
