@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import json
+import socket
 import base64
 import pygame
 import signal
@@ -26,6 +27,7 @@ signal.signal(signal.SIGTERM, terminationhandler)
 
 # Pygame Initialization
 pygame.display.init()
+pygame.font.init()
 pygame.mouse.set_visible(0)
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 
@@ -57,11 +59,21 @@ def aspectscale(img, size):
     return pygame.transform.scale(img, (int(sx), int(sy)))
 
 
-def displaysurface(surface):
+def displaysurface(surface, show_ip):
     x_centered = screen.get_size()[0] / 2 - surface.get_size()[0] / 2
     y_centered = screen.get_size()[1] / 2 - surface.get_size()[1] / 2
 
     screen.blit(surface, (x_centered, y_centered))
+
+    if show_ip:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip_address = s.getsockname()[0]
+        s.close()
+        font = pygame.font.SysFont('Arial', screen.get_size()[0] // 24)
+        text = font.render(ip_address, True, (128, 128, 128))
+        screen.blit(text, (screen.get_size()[0] // 12, screen.get_size()[1] * 7 // 8))
+
     pygame.display.update()
 
 
@@ -75,7 +87,7 @@ def displayimage(imagefilename):
     x_centered = screen.get_size()[0] / 2 - img.get_size()[0] / 2
     y_centered = screen.get_size()[1] / 2 - img.get_size()[1] / 2
     surface.blit(img, (x_centered, y_centered))
-    displaysurface(surface)
+    displaysurface(surface, False)
 
 
 ready_surf = pygame.Surface(screen.get_size())
@@ -90,7 +102,7 @@ processing_img_x_centered = screen.get_size()[0] / 2 - processing_img.get_size()
 processing_img_y_centered = screen.get_size()[1] / 2 - processing_img.get_size()[1] / 2
 processing_surf.blit(processing_img, (processing_img_x_centered, processing_img_y_centered))
 
-displaysurface(ready_surf)
+displaysurface(ready_surf, True)
 
 def playeraction(action):
     global player
@@ -145,7 +157,7 @@ def launchvideo(url, config, sub=False):
         raise
 
     if config["new_log"]:
-        displaysurface(processing_surf)
+        displaysurface(processing_surf, False)
 
     logger.info('Extracting source video URL...')
     out = return_full_url(url, sub=sub, slow_mode=config["slow_mode"])
@@ -280,7 +292,7 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
         resolution = " --win '0 0 {0} {1}'".format(width, height)
 
     setState("1")
-    displaysurface(ready_surf)
+    displaysurface(ready_surf, True)
     args = "-b" + resolution + " --vol " + str(volume)
     if sub:
         player = OMXPlayer(url, args + " --subtitles subtitle.srt")
