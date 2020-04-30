@@ -19,6 +19,13 @@ player = None
 
 DIR_PATH = os.path.dirname(os.path.abspath(__file__))
 
+# Volume
+try:
+    with open(os.path.join(DIR_PATH, "volume"), "r") as f:
+        volume = int(f.read())
+except Exception as e:
+    volume = 0
+
 # SIGTERM handler
 def terminationhandler(signum, frame):
     sys.exit(0)
@@ -305,7 +312,7 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
 
     setState("1")
     displaysurface(ready_surf, True)
-    args = "-b" + resolution + " --vol " + str(volume)
+    args = "-b" + resolution + " --vol " + str(volume) #+ " -o alsa"
     if sub:
         player = OMXPlayer(url, args + " --subtitles subtitle.srt")
     elif url is None:
@@ -358,3 +365,5 @@ def setVolume(vol):
         volume += 300
     if vol == "less":
         volume -= 300
+    with open(os.path.join(DIR_PATH, "volume"), "w") as f:
+        f.write(str(volume))
