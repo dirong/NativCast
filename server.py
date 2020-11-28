@@ -80,7 +80,9 @@ def home():
 @app.route('/local')
 def local():
     url = request.query['url']
-    openlocal(url)
+    cmd = request.query['cmd'] or None
+    ip = request.remote_route[0]
+    openlocal(url, cmd, ip)
     return "1"
 
 @app.route('/stream')

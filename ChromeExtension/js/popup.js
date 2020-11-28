@@ -1,9 +1,18 @@
+
+
 function handlers() {
 
 	$( "#local" ).click(function() {
 		chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
 			var url_encoded = encodeURIComponent(tabs[0].url);
-			chrome.extension.getBackgroundPage().mkrequest("/local?url=" + url_encoded + "&slow="+localStorage.modeslow, 1);
+			var cmd_encoded = encodeURIComponent('/Applications/NoMachine.app/Contents/MacOS/nxplayer --session /Users/jacobr/dev/scripts/local/.nomachine.pi.nxs');
+			chrome.extension.getBackgroundPage().mkrequest("/local?url=" + url_encoded + "&cmd=" + cmd_encoded +   "&slow="+localStorage.modeslow, 1);
+			chrome.system.network.getNetworkInterfaces(function(interfaces){
+					console.log(interfaces);
+					debugger;
+
+			});
+
 		});
 		window.close();
 	});

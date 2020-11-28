@@ -211,11 +211,15 @@ adding to queue.')
             with open('video.queue', 'a') as f:
                 f.write(out+'\n')
 
-def openlocal(url):
+def openlocal(url, cmd=None, ip=None):
     logger.info('Received URL local open: ' + url)
     pygame.quit()
-    cmd = "chromium-browser '{}'".format(url)
-    os.system(cmd)
+    open_chromium = "chromium-browser '{}' &".format(url)
+    os.system(open_chromium)
+    if cmd and ip:
+        run_cmd = "ssh jacobr@{} '{}' &".format(ip, cmd)
+        logger.info('running cmd: ' + run_cmd)
+        os.system(run_cmd)
 
 def return_full_url(url, sub=False, slow_mode=False):
     logger.debug("Parsing source url for "+url+" with subs :"+str(sub))
