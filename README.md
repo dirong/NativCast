@@ -15,7 +15,7 @@ You can also cast playlists from Youtube or Soundcloud.
 ## How to install (Raspberry Pi side)
 
 ```
-wget https://raw.githubusercontent.com/rudcode/NativCast/master/setup.sh && sudo sh setup.sh
+wget https://raw.githubusercontent.com/JakeIwen/NativCast/master/setup.sh && sudo sh setup.sh
 ```
 That's it.
 
@@ -24,10 +24,10 @@ The installation script will:
 - Autostart RaspberryCast at boot (added to /etc/rc.local)
 - Reboot
 
-You can review the [install script](https://github.com/rudcode/NativCast/blob/master/setup.sh).
+You can review the [install script](https://github.com/JakeIwen/NativCast/blob/master/setup.sh).
 
 # Remote control (mobile devices)
-![The remote on Android](https://raw.githubusercontent.com/rudcode/NativCast/master/images/android.png)
+![The remote on Android](https://raw.githubusercontent.com/JakeIwen/NativCast/master/images/android.png)
 
 On any device connected to the same network as you Pi, you can visit the page:
 ```
@@ -39,10 +39,10 @@ You can also use the Android application (link to Playstore at the top of the pa
 
 ## Chrome & Firefox extension
 #### Extension options
-![alt tag](https://raw.githubusercontent.com/rudcode/NativCast/master/images/extension.png)
+![alt tag](https://raw.githubusercontent.com/JakeIwen/NativCast/master/images/extension.png)
 
 #### Right-click options
-![alt tag](https://raw.githubusercontent.com/rudcode/NativCast/master/images/rightclick.png)
+![alt tag](https://raw.githubusercontent.com/JakeIwen/NativCast/master/images/rightclick.png)
 
 You can configure RaspberryCast settings in the extension option page.
 
@@ -53,7 +53,7 @@ Works on Linux, Mac OS, and Windows (Python needed)
 **Download**
 
 ```
-wget https://raw.githubusercontent.com/rudcode/NativCast/master/rcast.py
+wget https://raw.githubusercontent.com/JakeIwen/NativCast/master/rcast.py
 ```
 
 **Usage**
