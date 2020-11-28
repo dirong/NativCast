@@ -212,7 +212,6 @@ adding to queue.')
                 f.write(out+'\n')
 
 def openlocal(url):
-    url = request.query['url']
     logger.info('Received URL local open: ' + url)
     pygame.quit()
     cmd = "chromium-browser '{}'".format(url)
