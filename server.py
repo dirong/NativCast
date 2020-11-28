@@ -13,7 +13,8 @@ except ImportError:
 from bottle import Bottle, SimpleTemplate, request, response, \
                    template, run, static_file, BaseRequest
 from process import launchimage, launchvideo, queuevideo, playlist, \
-                    setState, getState, setVolume, playeraction, launchhome
+                    setState, getState, setVolume, playeraction, launchhome, \
+                    openlocal
 
 from omxplayer.keys import *
 
@@ -78,11 +79,7 @@ def home():
 
 @app.route('/local')
 def local():
-    url = request.query['url']
-    logger.debug('Received URL local open: ' + url)
-    pygame.quit()
-    cmd = "chromium-browser '{}'".format(url)
-    os.system(cmd)
+    openlocal(url)
     
 
 @app.route('/stream')

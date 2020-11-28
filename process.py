@@ -32,11 +32,8 @@ def terminationhandler(signum, frame):
 
 signal.signal(signal.SIGTERM, terminationhandler)
 
+init_pygame
 # Pygame Initialization
-pygame.display.init()
-pygame.font.init()
-pygame.mouse.set_visible(1)
-screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 
 def aspectscale(img, size):
     ix,iy = img.get_size()
@@ -208,6 +205,12 @@ adding to queue.')
             with open('video.queue', 'a') as f:
                 f.write(out+'\n')
 
+def openlocal(url:
+    url = request.query['url']
+    logger.info('Received URL local open: ' + url)
+    pygame.quit()
+    cmd = "chromium-browser '{}'".format(url)
+    os.system(cmd))
 
 def return_full_url(url, sub=False, slow_mode=False):
     logger.debug("Parsing source url for "+url+" with subs :"+str(sub))
@@ -367,3 +370,9 @@ def setVolume(vol):
         volume -= 300
     with open(os.path.join(DIR_PATH, "volume"), "w") as f:
         f.write(str(volume))
+        
+def init_pygame():
+    pygame.display.init()
+    pygame.font.init()
+    pygame.mouse.set_visible(0)
+    screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
