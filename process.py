@@ -205,7 +205,7 @@ adding to queue.')
             with open('video.queue', 'a') as f:
                 f.write(out+'\n')
 
-def openlocal(url:
+def openlocal(url):
     url = request.query['url']
     logger.info('Received URL local open: ' + url)
     pygame.quit()
