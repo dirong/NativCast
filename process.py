@@ -32,8 +32,14 @@ def terminationhandler(signum, frame):
 
 signal.signal(signal.SIGTERM, terminationhandler)
 
-init_pygame
 # Pygame Initialization
+def init_pygame():
+    pygame.display.init()
+    pygame.font.init()
+    pygame.mouse.set_visible(0)
+    screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+
+init_pygame
 
 def aspectscale(img, size):
     ix,iy = img.get_size()
@@ -370,9 +376,3 @@ def setVolume(vol):
         volume -= 300
     with open(os.path.join(DIR_PATH, "volume"), "w") as f:
         f.write(str(volume))
-        
-def init_pygame():
-    pygame.display.init()
-    pygame.font.init()
-    pygame.mouse.set_visible(0)
-    screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
