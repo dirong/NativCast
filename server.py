@@ -25,7 +25,7 @@ with open(config_file) as f:
       config = json.load(f)
 
 # Maximum size of memory buffer for body in bytes
-BaseRequest.MEMFILE_MAX = 20 * 1024 * 1024  # 20MB
+BaseRequest.MEMFILE_MAX = 128 * 1024 * 1024  # 20MB
 
 # Setting log
 logging.basicConfig(

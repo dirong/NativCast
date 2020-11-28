@@ -312,7 +312,7 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
 
     setState("1")
     displaysurface(ready_surf, True)
-    args = "-b" + resolution + " --vol " + str(volume) #+ " -o alsa"
+    args = "-b" + resolution + " --vol " + str(volume) + " --orientation 180 " + " -o hdmi"
     if sub:
         player = OMXPlayer(url, args + " --subtitles subtitle.srt")
     elif url is None:
