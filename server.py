@@ -78,14 +78,17 @@ def home():
     return "1"
 
 @app.route('/local')
-def local():
-    url = request.query['url']
-    openlocal(url)
 
 @app.route('/stream')
 def stream():
     url = request.query['url']
     logger.debug('Received URL to cast: '+url)
+    
+    if 'local' in request.query:
+        logger.debug('opening local: ' + url)
+        openlocal(url)
+        return "1"
+        
 
     if 'slow' in request.query:
         if request.query['slow'] in ["True", "true"]:
