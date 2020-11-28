@@ -35,7 +35,7 @@ signal.signal(signal.SIGTERM, terminationhandler)
 # Pygame Initialization
 pygame.display.init()
 pygame.font.init()
-pygame.mouse.set_visible(0)
+pygame.mouse.set_visible(1)
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 
 def aspectscale(img, size):

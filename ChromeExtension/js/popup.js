@@ -1,5 +1,13 @@
 function handlers() {
 
+	$( "#local" ).click(function() {
+		chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+			var url_encoded = encodeURIComponent(tabs[0].url);
+			chrome.extension.getBackgroundPage().mkrequest("/stream?url=" + url_encoded + "&slow="+localStorage.modeslow, 1);
+		});
+		window.close();
+	});
+	
 	$( "#castbtn" ).click(function() {
 		chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
 			var url_encoded = encodeURIComponent(tabs[0].url);

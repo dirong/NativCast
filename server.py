@@ -76,6 +76,14 @@ def home():
     launchhome()
     return "1"
 
+@app.route('/local')
+def local():
+    url = request.query['url']
+    logger.debug('Received URL local open: ' + url)
+    cmd = "chromium-browser '{}'".format(url)
+    os.system(cmd)
+    
+
 @app.route('/stream')
 def stream():
     url = request.query['url']
