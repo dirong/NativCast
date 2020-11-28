@@ -79,8 +79,8 @@ def home():
 
 @app.route('/local')
 def local():
+    url = request.query['url']
     openlocal(url)
-    
 
 @app.route('/stream')
 def stream():
