@@ -80,6 +80,7 @@ def home():
 def local():
     url = request.query['url']
     logger.debug('Received URL local open: ' + url)
+    pygame.quit()
     cmd = "chromium-browser '{}'".format(url)
     os.system(cmd)
     
