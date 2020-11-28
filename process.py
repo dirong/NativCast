@@ -210,7 +210,7 @@ def openlocal(url):
     logger.info('Received URL local open: ' + url)
     pygame.quit()
     cmd = "chromium-browser '{}'".format(url)
-    os.system(cmd))
+    os.system(cmd)
 
 def return_full_url(url, sub=False, slow_mode=False):
     logger.debug("Parsing source url for "+url+" with subs :"+str(sub))
