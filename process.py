@@ -39,7 +39,7 @@ def init_pygame():
     pygame.mouse.set_visible(0)
     return pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 
-screen = init_pygame
+screen = init_pygame()
 
 def aspectscale(img, size):
     ix,iy = img.get_size()
