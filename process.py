@@ -9,6 +9,7 @@ import signal
 import logging
 import threading
 import youtube_dl
+from subprocess import Popen, DEVNULL
 
 from PIL import Image
 from omxplayer.player import OMXPlayer
@@ -211,15 +212,29 @@ adding to queue.')
             with open('video.queue', 'a') as f:
                 f.write(out+'\n')
 
-def openlocal(url, cmd=None, ip=None):
+def openlocal(url, rev_cmd=None, user=None, ip=None):
+    if rev_cmd == "" or user == "":
+        rev_cmd = None 
+        user = None
     logger.info('Received URL local open: ' + url)
     pygame.quit()
-    open_chromium = "chromium-browser '{}' &".format(url)
-    os.system(open_chromium)
-    if cmd and ip:
-        run_cmd = "ssh jacobr@{} '{}' &".format(ip, cmd)
-        logger.info('running cmd: ' + run_cmd)
-        os.system(run_cmd)
+    os.system('pkill -f vlc')
+    os.system('pkill -f chromium')
+    if "youtu" in url:
+        open_video_cmd = "vlc '{}'".format(url)
+    else:
+        open_video_cmd = "chromium-browser '{}'".format(url)
+    nohup(open_video_cmd)
+    if rev_cmd:
+        run_cmd = "ssh {}@{} '{}'".format(user, ip, rev_cmd)
+        nohup(run_cmd)
+
+def nohup(cmd):
+    logger.info("Running shell command {}".format(cmd))
+    nh = "nohup {} &"
+    result = Popen([nh], shell=True, stdout=DEVNULL, stderr=DEVNULL, close_fds=True)
+    logger.info("Done; PID {}".format(result.pid))
+    return result
 
 def return_full_url(url, sub=False, slow_mode=False):
     logger.debug("Parsing source url for "+url+" with subs :"+str(sub))

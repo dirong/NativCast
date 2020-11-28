@@ -18,7 +18,7 @@ function notif(title, msg) {
 
 function mkrequest(url, response) {
 	try {
-		var newURL = "http://"+localStorage.getItem('raspip')+":2020"+url;
+		var newURL = "http://"+localStorage.getItem('nc_raspip')+":2020"+url;
 		if (response == 1) {
 			notif("NativCast", "Processing video. Please wait ~ 10 seconds.");
 		}
@@ -54,7 +54,7 @@ function mkimgrequest(url, response) {
     console.log(url);
     toDataURL(url, function(base64img) {
         try {
-            var newURL = "http://"+localStorage.getItem('raspip')+":2020/image";
+            var newURL = "http://"+localStorage.getItem('nc_raspip')+":2020/image";
             if (response == 1) {
                 notif("NativCast", "Processing Image.");
             }
@@ -92,10 +92,10 @@ function mkimgrequest(url, response) {
 chrome.contextMenus.onClicked.addListener(function(info) {
 	if(info.menuItemId == "Castnow") {
 		var url_encoded_url = encodeURIComponent(info.linkUrl);
-		if (localStorage.cmFunction == "stream") {
-			mkrequest("/stream?url="+url_encoded_url+"&slow="+localStorage.modeslow, 1);
+		if (localStorage.nc_cmFunction == "stream") {
+			mkrequest("/stream?url="+url_encoded_url+"&slow="+localStorage.nc_modeslow, 1);
 		} else {
-			mkrequest("/queue?url="+url_encoded_url+"&slow="+localStorage.modeslow, 0);
+			mkrequest("/queue?url="+url_encoded_url+"&slow="+localStorage.nc_modeslow, 0);
 		}
 	}
 	else {

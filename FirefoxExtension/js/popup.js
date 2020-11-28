@@ -9,7 +9,7 @@ function handlers() {
         browser.tabs.query({active: true, currentWindow: true})
         .then(function(tabs){
             browser.extension.getBackgroundPage().mkrequest("/stream?url=" + tabs[0].url
-                                                   + "&slow="+localStorage.modeslow, 1);
+                                                   + "&slow="+localStorage.nc_modeslow, 1);
             window.close();
         })
         .catch(onError);
@@ -19,7 +19,7 @@ function handlers() {
         browser.tabs.query({active: true, currentWindow: true})
         .then(function(tabs){
             browser.extension.getBackgroundPage().mkrequest("/queue?url=" + tabs[0].url
-                                                   + "&slow="+localStorage.modeslow, 1);
+                                                   + "&slow="+localStorage.nc_modeslow, 1);
             window.close();
         })
         .catch(onError);
@@ -68,7 +68,7 @@ function show(message) {
 
 function test() {
 	try {
-		var newURL = "http://"+localStorage.getItem('raspip')+":2020/running";
+		var newURL = "http://"+localStorage.getItem('nc_raspip')+":2020/running";
 		show("Loading...");
 		var req = new XMLHttpRequest();
 		req.open('GET', newURL, true);

@@ -18,7 +18,7 @@ function notif(title, msg) {
 
 function mkrequest(url, response) {
 	try {
-		var newURL = "http://"+localStorage.getItem('raspip')+":2020"+url;
+		var newURL = "http://"+localStorage.getItem('nc_raspip')+":2020"+url;
 		if (response == 1) {
 			notif("RaspberryCast", "Processing video. Please wait ~ 10 seconds.");
 		}
@@ -53,10 +53,10 @@ function mkrequest(url, response) {
 
 browser.contextMenus.onClicked.addListener(function(info) {
 	var url_encoded_url = encodeURIComponent(info.linkUrl);
-	if (localStorage.cmFunction == "stream") {
-		mkrequest("/stream?url="+url_encoded_url+"&slow="+localStorage.modeslow, 1);
+	if (localStorage.nc_cmFunction == "stream") {
+		mkrequest("/stream?url="+url_encoded_url+"&slow="+localStorage.nc_modeslow, 1);
 	} else {
-		mkrequest("/queue?url="+url_encoded_url+"&slow="+localStorage.modeslow, 0);
+		mkrequest("/queue?url="+url_encoded_url+"&slow="+localStorage.nc_modeslow, 0);
 	}
 	
 });

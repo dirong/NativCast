@@ -1,10 +1,12 @@
 function saveSettings() {
-	localStorage.raspip = document.getElementById("raspip").value;
+	localStorage.nc_raspip = document.getElementById("raspip").value;
+	localStorage.nc_cmd = document.getElementById("cmd").value;
+	localStorage.nc_user = document.getElementById("user").value;
 
 	var radios = document.getElementsByName('cmFunction');
 	for (var i = 0, length = radios.length; i < length; i++) {
 	    if (radios[i].checked) {
-		localStorage.cmFunction = radios[i].value;
+		localStorage.nc_cmFunction = radios[i].value;
 		break;
 	    }
 	}
@@ -12,7 +14,7 @@ function saveSettings() {
 	var radios = document.getElementsByName('mode_slow');
 	for (var i = 0, length = radios.length; i < length; i++) {
 	    if (radios[i].checked) {
-		localStorage.modeslow = radios[i].value;
+		localStorage.nc_modeslow = radios[i].value;
 		break;
 	    }
 	}
@@ -21,29 +23,29 @@ function saveSettings() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-	if (localStorage.raspip != undefined) {
-		document.getElementById("raspip").value = localStorage.raspip;
+	if (localStorage.nc_raspip != undefined) {
+		document.getElementById("raspip").value = localStorage.nc_raspip;
 	} else {
 		document.getElementById("raspip").value = "raspberrypi.local";
-		localStorage.raspip = 'raspberrypi.local';
+		localStorage.nc_raspip = 'raspberrypi.local';
 	}
-localStorage.raspip
-	if (localStorage.cmFunction == undefined) {
-		localStorage.cmFunction = "stream";
+
+	if (localStorage.nc_cmFunction == undefined) {
+		localStorage.nc_cmFunction = "stream";
 		document.getElementById("cmFstream").checked = true;
 	} else {
-		if (localStorage.cmFunction == "stream") {
+		if (localStorage.nc_cmFunction == "stream") {
 			document.getElementById("cmFstream").checked = true;
 		} else {
 			document.getElementById("cmFqueue").checked = true;
 		}
 	}
 
-	if (localStorage.modeslow == undefined) {
-		localStorage.modeslow = "False";
+	if (localStorage.nc_modeslow == undefined) {
+		localStorage.nc_modeslow = "False";
 		document.getElementById("high_qual").checked = true;
 	} else {
-		if (localStorage.modeslow == "False") {
+		if (localStorage.nc_modeslow == "False") {
 			document.getElementById("high_qual").checked = true;
 		} else {
 			document.getElementById("bad_qual").checked = true;
