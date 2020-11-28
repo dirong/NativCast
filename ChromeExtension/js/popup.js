@@ -11,7 +11,6 @@ function handlers() {
 				"url=" + url_enc + 
 				"&cmd=" + cmd_enc + 
 				"&user=" + user_enc, 1);
-
 		});
 		window.close();
 	});
