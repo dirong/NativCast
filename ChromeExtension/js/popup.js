@@ -1,5 +1,3 @@
-
-
 function handlers() {
 
 	$( "#local" ).click(function() {

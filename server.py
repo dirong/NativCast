@@ -18,6 +18,7 @@ from process import launchimage, launchvideo, queuevideo, playlist, \
 
 from omxplayer.keys import *
 
+
 if len(sys.argv) > 1:
     config_file = sys.argv[1]
 else:
@@ -50,6 +51,7 @@ root.addHandler(ch)
 setState("0")
 open('video.queue', 'w').close()  # Reset queue
 logger.info('Server successfully started!')
+logger.info('args', sys.argv)
 
 app = Bottle()
 
