@@ -1,0 +1,37 @@
+pygame 1.9.4.post1
+Hello from the pygame community. https://www.pygame.org/contribute.html
+RaspberryCast - INFO - Server successfully started!
+sys:1: ResourceWarning: unclosed <socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 2020)>
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+pygame 1.9.4.post1
+Hello from the pygame community. https://www.pygame.org/contribute.html
+RaspberryCast - INFO - Server successfully started!
+RaspberryCast - INFO - Received URL local open: https://www.netflix.com/browse?jbv=80204890
+RaspberryCast - INFO - Running shell command: chromium-browser 'https://www.netflix.com/browse?jbv=80204890' --user-agent="Mozilla/5.0 (X11; CrOS armv7l 12371.89.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+
+RaspberryCast - INFO - Done; PID 23911
+RaspberryCast - INFO - Received URL local open: https://www.youtube.com/watch?v=KYp5dfhbllg
+RaspberryCast - INFO - Running shell command: vlc -f 'https://www.youtube.com/watch?v=KYp5dfhbllg'
+RaspberryCast - INFO - Done; PID 8882
+/home/pi/NativCast/process.py:227: ResourceWarning: unclosed file <_io.TextIOWrapper name='/usr/share/applications/chromium-media-browser.desktop' mode='r' encoding='UTF-8'>
+  open_video_cmd = chromium_media_cmd(url)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.7/subprocess.py:858: ResourceWarning: subprocess 23911 is still running
+  ResourceWarning, source=self)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.7/subprocess.py:858: ResourceWarning: subprocess 8882 is still running
+  ResourceWarning, source=self)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+sys:1: ResourceWarning: unclosed <socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 2020)>
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+pygame 1.9.4.post1
+Hello from the pygame community. https://www.pygame.org/contribute.html
+RaspberryCast - INFO - Server successfully started!
+RaspberryCast - INFO - Received URL local open: https://www.youtube.com/watch?v=nu_R8_Y5Vxs
+RaspberryCast - INFO - Running shell command: vlc -f 'https://www.youtube.com/watch?v=nu_R8_Y5Vxs'
+RaspberryCast - INFO - Done; PID 10399
+/usr/lib/python3.7/subprocess.py:858: ResourceWarning: subprocess 10399 is still running
+  ResourceWarning, source=self)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+sys:1: ResourceWarning: unclosed <socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 2020)>
+ResourceWarning: Enable tracemalloc to get the object allocation traceback

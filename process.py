@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import time
 import json
@@ -19,7 +20,7 @@ volume = 0
 player = None
 
 DIR_PATH = os.path.dirname(os.path.abspath(__file__))
-
+ENV = {**os.environ, 'DISPLAY': ':0'}
 # Volume
 try:
     with open(os.path.join(DIR_PATH, "volume"), "r") as f:
@@ -219,28 +220,45 @@ def openlocal(url, rev_cmd=None, user=None, ip=None):
     logger.info('Received URL local open: ' + url)
     pygame.quit()
     os.system('pkill -f vlc')
-    os.system('pkill -f chromium')
-    if "youtu" in url:
-        open_video_cmd = "vlc '{}'".format(url)
+    os.system('pkill -f chrom')
+    if is_direct_video(url):
+        open_video_cmd = "vlc -f '{}'".format(url)
     else:
-        open_video_cmd = "chromium-browser '{}'".format(url)
+        open_video_cmd = chromium_media_cmd(url)
     nohup(open_video_cmd)
     if rev_cmd:
         run_cmd = "ssh {}@{} '{}'".format(user, ip, rev_cmd)
         nohup(run_cmd)
+        
+def chromium_media_cmd(url):
+    prefix = "Exec=chromium-browser %U"
+    fpath = "/usr/share/applications/chromium-media-browser.desktop"
+    file = open(fpath, "r")
+    for line in file:
+        if re.search(prefix, line):
+            exec_line = line 
+            break
+    exp_prefix = "chromium-browser '{}'".format(url)
+    return exec_line.replace(prefix, exp_prefix) if exec_line else ""
 
 def nohup(cmd):
-    logger.info("Running shell command {}".format(cmd))
-    nh = "nohup {} &"
-    result = Popen([nh], shell=True, stdout=DEVNULL, stderr=DEVNULL, close_fds=True)
+    logger.info("Running shell command: " + cmd)
+    nh = "nohup {} &".format(cmd)
+    result = Popen([nh], shell=True, stdout=DEVNULL, stderr=DEVNULL, close_fds=True, env=ENV)
     logger.info("Done; PID {}".format(result.pid))
     return result
 
+def is_direct_video(url):
+    yt = "youtu" in url
+    vm = "vimeo" in url
+    gv = ".googlevideo.com/" in url
+    fext = url[-4:] in (".avi", ".mkv", ".mp4", ".mp3")
+    return yt or vm or gv or fext
+    
 def return_full_url(url, sub=False, slow_mode=False):
     logger.debug("Parsing source url for "+url+" with subs :"+str(sub))
 
-    if ((url[-4:] in (".avi", ".mkv", ".mp4", ".mp3")) or
-            (sub) or (".googlevideo.com/" in url)):
+    if (is_direct_video(url) or sub):
         logger.debug('Direct video URL, no need to use youtube-dl.')
         return url
 

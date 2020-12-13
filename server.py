@@ -21,7 +21,7 @@ from omxplayer.keys import *
 if len(sys.argv) > 1:
     config_file = sys.argv[1]
 else:
-    config_file = 'raspberrycast.conf'
+    config_file = '/home/pi/NativCast/raspberrycast.conf'
 with open(config_file) as f:
       config = json.load(f)
 
