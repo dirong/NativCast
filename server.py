@@ -18,17 +18,6 @@ from process import launchimage, launchvideo, queuevideo, playlist, \
 
 from omxplayer.keys import *
 
-
-if len(sys.argv) > 1:
-    config_file = sys.argv[1]
-    logger.info('conf from sys.argv[1]')
-else:
-    config_file = 'raspberrycast.conf'
-logger.info('conf')
-logger.info(config_file)
-with open(config_file) as f:
-      config = json.load(f)
-
 # Maximum size of memory buffer for body in bytes
 BaseRequest.MEMFILE_MAX = 128 * 1024 * 1024  # 20MB
 
@@ -40,6 +29,16 @@ logging.basicConfig(
     level=logging.DEBUG
 )
 logger = logging.getLogger("RaspberryCast")
+
+if len(sys.argv) > 1:
+    config_file = sys.argv[1]
+    logger.info('conf from sys.argv[1]')
+else:
+    config_file = 'raspberrycast.conf'
+logger.info('conf')
+logger.info(config_file)
+with open(config_file) as f:
+      config = json.load(f)
 
 # Creating handler to print messages on stdout
 root = logging.getLogger()
