@@ -3,8 +3,8 @@ function handlers() {
 	$( "#local" ).click(function() {
 		chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
 			var url_enc = encodeURIComponent(tabs[0].url);
-			var cmd_enc = encodeURIComponent(localStorage.nc_cmd);
-			var user_enc = encodeURIComponent(localStorage.nc_user);
+			var cmd_enc = encodeURIComponent(localStorage.cmd);
+			var user_enc = encodeURIComponent(localStorage.user);
 			chrome.extension.getBackgroundPage().mkrequest("/local?" + 
 				"url=" + url_enc + 
 				"&cmd=" + cmd_enc + 
@@ -16,7 +16,7 @@ function handlers() {
 	$( "#castbtn" ).click(function() {
 		chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
 			var url_encoded = encodeURIComponent(tabs[0].url);
-			chrome.extension.getBackgroundPage().mkrequest("/stream?url=" + url_encoded + "&slow="+localStorage.nc_modeslow, 1);
+			chrome.extension.getBackgroundPage().mkrequest("/stream?url=" + url_encoded + "&slow="+localStorage.modeslow, 1);
 		});
 		window.close();
 	});
@@ -24,7 +24,7 @@ function handlers() {
 	$( "#addqueue" ).click(function() {
 		chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
 			var url_encoded = encodeURIComponent(tabs[0].url);
-			chrome.extension.getBackgroundPage().mkrequest("/queue?url="+url_encoded + "&slow="+localStorage.nc_modeslow, 1);
+			chrome.extension.getBackgroundPage().mkrequest("/queue?url="+url_encoded + "&slow="+localStorage.modeslow, 1);
 		});
 		window.close();	
 	});	
@@ -77,7 +77,7 @@ function show(message) {
 
 function test() {
 	try {
-		var newURL = "http://"+localStorage.getItem('nc_raspip')+":2020/running";
+		var newURL = "http://"+localStorage.getItem('raspip')+":2020/running";
 		show("Loading...");
 		var req = new XMLHttpRequest();
 		req.open('GET', newURL, true);

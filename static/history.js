@@ -30,7 +30,7 @@ function storageAvailable(type) {
 function addToHistory(url) {
       if (storageAvailable('localStorage')) {
             //Retreive the history, create an empty array if it does not exist
-            historyArray = JSON.parse(localStorage.getItem('nc_history'));
+            historyArray = JSON.parse(localStorage.getItem('history'));
       
             if (!historyArray)
             historyArray = [];
@@ -42,13 +42,13 @@ function addToHistory(url) {
             if (!historyArray.includes(url))  
                   historyArray.push(url);
 
-            localStorage.nc_setItem('history', JSON.stringify(historyArray));
+            localStorage.setItem('history', JSON.stringify(historyArray));
       }
 }
 
 function updateHistoryDiv() {
       if (storageAvailable('localStorage')) {
-            historyArray = JSON.parse(localStorage.getItem('nc_history'));
+            historyArray = JSON.parse(localStorage.getItem('history'));
             
             if (!historyArray) {
                   return;
@@ -72,7 +72,7 @@ function updateHistoryDiv() {
             }
 
             var clearHistoryLink = $("<a id='clear-history-link-item' href=''>Clear history</a>").click(function() {
-                  localStorage.nc_clear();
+                  localStorage.clear();
                   $( "#history-div" ).toggle("fast");
             });
 
