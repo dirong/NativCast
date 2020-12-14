@@ -35,13 +35,11 @@ def terminationhandler(signum, frame):
 signal.signal(signal.SIGTERM, terminationhandler)
 
 # Pygame Initialization
-def init_pygame():
-    pygame.display.init()
-    pygame.font.init()
-    pygame.mouse.set_visible(0)
-    return pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+pygame.display.init()
+pygame.font.init()
+pygame.mouse.set_visible(0)
+screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 
-screen = init_pygame()
 
 def aspectscale(img, size):
     ix,iy = img.get_size()
@@ -351,7 +349,7 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
 
     setState("1")
     displaysurface(ready_surf, True)
-    args = "-b" + resolution + " --vol " + str(volume) + " --orientation 180 " + " -o hdmi"
+    args = "-b" + resolution + " --vol " + str(volume) # + " --orientation 180 " + " -o hdmi"
     if sub:
         player = OMXPlayer(url, args + " --subtitles subtitle.srt")
     elif url is None:
