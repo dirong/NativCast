@@ -21,8 +21,11 @@ from omxplayer.keys import *
 
 if len(sys.argv) > 1:
     config_file = sys.argv[1]
+    logger.info('conf from sys.argv[1]')
 else:
     config_file = 'raspberrycast.conf'
+logger.info('conf')
+logger.info(config_file)
 with open(config_file) as f:
       config = json.load(f)
 
@@ -51,7 +54,7 @@ root.addHandler(ch)
 setState("0")
 open('video.queue', 'w').close()  # Reset queue
 logger.info('Server successfully started!')
-logger.info('args', sys.argv)
+
 
 app = Bottle()
 
