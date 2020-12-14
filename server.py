@@ -51,7 +51,7 @@ open('video.queue', 'w').close()  # Reset queue
 logger.info('Server successfully started!')
 
 app = Bottle()
-
+ 
 SimpleTemplate.defaults["get_url"] = app.get_url
 
 
