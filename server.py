@@ -256,6 +256,7 @@ def shutdown():
 
 @app.route('/running')
 def webstate():
+    logger.info("webstate")
     currentState = getState()
     logger.debug("Running state as been asked : "+currentState)
     return currentState
