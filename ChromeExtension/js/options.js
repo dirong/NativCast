@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		document.getElementById("raspip").value = "raspberrypi.local";
 		localStorage.raspip = 'raspberrypi.local';
 	}
+	localStorage.raspip
 
 	if (localStorage.cmFunction == undefined) {
 		localStorage.cmFunction = "stream";
