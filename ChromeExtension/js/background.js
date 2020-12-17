@@ -15,7 +15,7 @@ function notif(title, msg) {
 	setTimeout(stopNote, 4000);		
 }
 
-
+ 
 function mkrequest(url, response) {
 	try {
 		var newURL = "http://"+localStorage.getItem('raspip')+":2020"+url;
