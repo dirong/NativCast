@@ -11,6 +11,7 @@ import logging
 import threading
 import youtube_dl
 from subprocess import Popen, DEVNULL
+from sonos_tasks import rear_movie
 
 from PIL import Image
 from omxplayer.player import OMXPlayer
@@ -387,6 +388,7 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
 
 
 def setState(state):
+    rear_movie(60)
     # Write to file so it can be accessed from everywhere
     os.system("echo "+state+" > state.tmp")
 
