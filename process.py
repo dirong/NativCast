@@ -36,11 +36,11 @@ def terminationhandler(signum, frame):
 signal.signal(signal.SIGTERM, terminationhandler)
 
 # Pygame Initialization
-pygame.display.init()
-pygame.font.init()
-pygame.mouse.set_visible(0)
-screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-
+def init_pygame():
+    pygame.display.init()
+    pygame.font.init()
+    pygame.mouse.set_visible(0)
+    return pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 
 def aspectscale(img, size):
     ix,iy = img.get_size()
@@ -71,21 +71,22 @@ def aspectscale(img, size):
 
 
 def displaysurface(surface, show_ip):
-    x_centered = screen.get_size()[0] / 2 - surface.get_size()[0] / 2
-    y_centered = screen.get_size()[1] / 2 - surface.get_size()[1] / 2
-
-    screen.blit(surface, (x_centered, y_centered))
-
-    if show_ip:
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ip_address = s.getsockname()[0]
-        s.close()
-        font = pygame.font.SysFont('Arial', screen.get_size()[0] // 24)
-        text = font.render(ip_address, True, (128, 128, 128))
-        screen.blit(text, (screen.get_size()[0] // 12, screen.get_size()[1] * 7 // 8))
-
-    pygame.display.update()
+    pygame.quit()
+    # x_centered = screen.get_size()[0] / 2 - surface.get_size()[0] / 2
+    # y_centered = screen.get_size()[1] / 2 - surface.get_size()[1] / 2
+    # 
+    # screen.blit(surface, (x_centered, y_centered))
+    # 
+    # if show_ip:
+    #     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    #     s.connect(("8.8.8.8", 80))
+    #     ip_address = s.getsockname()[0]
+    #     s.close()
+    #     font = pygame.font.SysFont('Arial', screen.get_size()[0] // 24)
+    #     text = font.render(ip_address, True, (128, 128, 128))
+    #     screen.blit(text, (screen.get_size()[0] // 12, screen.get_size()[1] * 7 // 8))
+    # 
+    # pygame.display.update()
 
 
 def displayimage(imagefilename):
@@ -100,18 +101,19 @@ def displayimage(imagefilename):
     surface.blit(img, (x_centered, y_centered))
     displaysurface(surface, False)
 
+ready_surf = None
+processing_surf = None
+# ready_surf = pygame.Surface(screen.get_size())
+# ready_img = aspectscale(pygame.image.load(os.path.join(DIR_PATH, "images", "ready.jpg")), (screen.get_size()))
+# ready_img_x_centered = screen.get_size()[0] / 2 - ready_img.get_size()[0] / 2
+# ready_img_y_centered = screen.get_size()[1] / 2 - ready_img.get_size()[1] / 2
+# ready_surf.blit(ready_img, (ready_img_x_centered, ready_img_y_centered))
 
-ready_surf = pygame.Surface(screen.get_size())
-ready_img = aspectscale(pygame.image.load(os.path.join(DIR_PATH, "images", "ready.jpg")), (screen.get_size()))
-ready_img_x_centered = screen.get_size()[0] / 2 - ready_img.get_size()[0] / 2
-ready_img_y_centered = screen.get_size()[1] / 2 - ready_img.get_size()[1] / 2
-ready_surf.blit(ready_img, (ready_img_x_centered, ready_img_y_centered))
-
-processing_surf = pygame.Surface(screen.get_size())
-processing_img = aspectscale(pygame.image.load(os.path.join(DIR_PATH, "images", "processing.jpg")), (screen.get_size()))
-processing_img_x_centered = screen.get_size()[0] / 2 - processing_img.get_size()[0] / 2
-processing_img_y_centered = screen.get_size()[1] / 2 - processing_img.get_size()[1] / 2
-processing_surf.blit(processing_img, (processing_img_x_centered, processing_img_y_centered))
+# processing_surf = pygame.Surface(screen.get_size())
+# processing_img = aspectscale(pygame.image.load(os.path.join(DIR_PATH, "images", "processing.jpg")), (screen.get_size()))
+# processing_img_x_centered = screen.get_size()[0] / 2 - processing_img.get_size()[0] / 2
+# processing_img_y_centered = screen.get_size()[1] / 2 - processing_img.get_size()[1] / 2
+# processing_surf.blit(processing_img, (processing_img_x_centered, processing_img_y_centered))
 
 displaysurface(ready_surf, True)
 
@@ -340,6 +342,7 @@ def playlistToQueue(url, config):
 def playWithOMX(url, sub, width="", height="", new_log=False):
     global player
     logger.info("Starting OMXPlayer now.")
+    rear_movie(60)
 
     logger.info("Attempting to read resolution from configuration file.")
 
@@ -388,7 +391,6 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
 
 
 def setState(state):
-    rear_movie(60)
     # Write to file so it can be accessed from everywhere
     os.system("echo "+state+" > state.tmp")
 
