@@ -245,12 +245,12 @@ def is_direct(url):
     vm = "vimeo" in url
     gv = ".googlevideo.com/" in url
     fext = url[-4:] in (".avi", ".mkv", ".mp4", ".mp3")
-    return yt or vm or gv or fext
+    return gv or fext # or yt or vm
     
 def return_full_url(url, sub=False, slow_mode=False):
     logger.debug("Parsing source url for "+url+" with subs :"+str(sub))
 
-    if (is_direct(url) or (sub)):
+    if (is_direct(url) or sub):
         logger.debug('Direct video URL, no need to use youtube-dl.')
         return url
 
