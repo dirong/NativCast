@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import time
 import json
@@ -9,6 +10,7 @@ import signal
 import logging
 import threading
 import youtube_dl
+from subprocess import Popen, DEVNULL
 
 from PIL import Image
 from omxplayer.player import OMXPlayer
@@ -18,7 +20,7 @@ volume = 0
 player = None
 
 DIR_PATH = os.path.dirname(os.path.abspath(__file__))
-
+# ENV = {**os.environ, 'DISPLAY': ':0'}
 # Volume
 try:
     with open(os.path.join(DIR_PATH, "volume"), "r") as f:
@@ -37,6 +39,7 @@ pygame.display.init()
 pygame.font.init()
 pygame.mouse.set_visible(0)
 screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+
 
 def aspectscale(img, size):
     ix,iy = img.get_size()
@@ -208,12 +211,46 @@ adding to queue.')
             with open('video.queue', 'a') as f:
                 f.write(out+'\n')
 
+def openlocal(url, rev_cmd=None, user=None, ip=None):
+    logger.info('Received URL local open: ' + url)
+    pygame.quit()
+    os.system('pkill -f vlc')
+    os.system('pkill -f chrom')
+    open_cmd = "vlc -f '{}'".format(url) if is_direct(url) else chromium_media_cmd(url)
+    nohup(open_cmd)
+    if rev_cmd and user and ip:
+        run_cmd = "ssh {}@{} '{}'".format(user, ip, rev_cmd)
+        nohup(run_cmd)
+        
+def chromium_media_cmd(url):
+    prefix = "Exec=chromium-browser %U"
+    fpath = "/usr/share/applications/chromium-media-browser.desktop"
+    file = open(fpath, "r")
+    for line in file:
+        if re.search(prefix, line):
+            exec_line = line 
+            break
+    exp_prefix = "chromium-browser '{}'".format(url)
+    return exec_line.replace(prefix, exp_prefix) if exec_line else ""
 
+def nohup(cmd):
+    logger.info("Running synchronous shell command: " + cmd)
+    nh = "nohup {} &".format(cmd)
+    result = Popen([nh], shell=True, stdout=DEVNULL, stderr=DEVNULL, close_fds=True, env=ENV)
+    logger.info("Done; PID {}".format(result.pid))
+    return result
+
+def is_direct(url):
+    yt = "youtu" in url
+    vm = "vimeo" in url
+    gv = ".googlevideo.com/" in url
+    fext = url[-4:] in (".avi", ".mkv", ".mp4", ".mp3")
+    return yt or vm or gv or fext
+    
 def return_full_url(url, sub=False, slow_mode=False):
     logger.debug("Parsing source url for "+url+" with subs :"+str(sub))
 
-    if ((url[-4:] in (".avi", ".mkv", ".mp4", ".mp3")) or
-            (sub) or (".googlevideo.com/" in url)):
+    if (is_direct(url) or (sub)):
         logger.debug('Direct video URL, no need to use youtube-dl.')
         return url
 
@@ -312,7 +349,7 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
 
     setState("1")
     displaysurface(ready_surf, True)
-    args = "-b" + resolution + " --vol " + str(volume) #+ " -o alsa"
+    args = "-b" + resolution + " --vol " + str(volume) # + " --orientation 180 " + " -o hdmi"
     if sub:
         player = OMXPlayer(url, args + " --subtitles subtitle.srt")
     elif url is None:

@@ -13,16 +13,10 @@ except ImportError:
 from bottle import Bottle, SimpleTemplate, request, response, \
                    template, run, static_file, BaseRequest
 from process import launchimage, launchvideo, queuevideo, playlist, \
-                    setState, getState, setVolume, playeraction, launchhome
+                    setState, getState, setVolume, playeraction, launchhome, \
+                    openlocal
 
 from omxplayer.keys import *
-
-if len(sys.argv) > 1:
-    config_file = sys.argv[1]
-else:
-    config_file = 'raspberrycast.conf'
-with open(config_file) as f:
-      config = json.load(f)
 
 # Maximum size of memory buffer for body in bytes
 BaseRequest.MEMFILE_MAX = 20 * 1024 * 1024  # 20MB
@@ -35,6 +29,16 @@ logging.basicConfig(
     level=logging.DEBUG
 )
 logger = logging.getLogger("RaspberryCast")
+
+if len(sys.argv) > 1:
+    config_file = sys.argv[1]
+    logger.info('conf from sys.argv[1]')
+else:
+    config_file = 'raspberrycast.conf'
+logger.info('conf')
+logger.info(config_file)
+with open(config_file) as f:
+      config = json.load(f)
 
 # Creating handler to print messages on stdout
 root = logging.getLogger()
@@ -50,8 +54,9 @@ setState("0")
 open('video.queue', 'w').close()  # Reset queue
 logger.info('Server successfully started!')
 
+
 app = Bottle()
- 
+
 SimpleTemplate.defaults["get_url"] = app.get_url
 
 
@@ -74,6 +79,15 @@ def remote():
 @app.route('/home')
 def home():
     launchhome()
+    return "1"
+
+@app.route('/local')
+def local():
+    url = request.query['url']
+    cmd = request.query['cmd']
+    user = request.query['user']
+    ip = request.remote_route[0]
+    openlocal(url, cmd, ip, user)
     return "1"
 
 @app.route('/stream')
@@ -109,7 +123,7 @@ Replacing with remote IP.''')
                                 .replace('localhost', ip)\
                                 .replace('127.0.0.1', ip)
 
-            logger.debug('Subtitles link is '+subtitles) 
+            logger.debug('Subtitles link is '+subtitles)
             urlretrieve(subtitles, "subtitle.srt")
             launchvideo(url, config, sub=True)
         else:
@@ -242,6 +256,7 @@ def shutdown():
 
 @app.route('/running')
 def webstate():
+    logger.info("webstate")
     currentState = getState()
     logger.debug("Running state as been asked : "+currentState)
     return currentState
