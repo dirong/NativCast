@@ -245,7 +245,7 @@ def is_direct(url):
     vm = "vimeo" in url
     gv = ".googlevideo.com/" in url
     fext = url[-4:] in (".avi", ".mkv", ".mp4", ".mp3")
-    return yt or vm or gv or fext
+    return gv or fext # or yt or vm
     
 def return_full_url(url, sub=False, slow_mode=False):
     logger.debug("Parsing source url for "+url+" with subs :"+str(sub))
@@ -349,7 +349,7 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
 
     setState("1")
     displaysurface(ready_surf, True)
-    args = "-b" + resolution + " --vol " + str(volume) # + " --orientation 180 " + " -o hdmi"
+    args = "-b" + resolution + " --vol " + str(volume) + " --orientation 180 " + " -o hdmi"
     if sub:
         player = OMXPlayer(url, args + " --subtitles subtitle.srt")
     elif url is None:
