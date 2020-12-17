@@ -13,8 +13,8 @@ if [ $1 = "start" ]; then
 		echo "Try again without sudo."
 		exit 0
 	fi
-	echo "Checking for updates."
-	git pull
+	# echo "Checking for updates."
+	# git pull
 	echo "Starting RaspberryCast server."
 	export DISPLAY=:0 && ./server.py &
 	echo "Done."
