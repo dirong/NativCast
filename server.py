@@ -109,7 +109,7 @@ Replacing with remote IP.''')
                                 .replace('localhost', ip)\
                                 .replace('127.0.0.1', ip)
 
-            logger.debug('Subtitles link is '+subtitles)
+            logger.debug('Subtitles link is '+subtitles) 
             urlretrieve(subtitles, "subtitle.srt")
             launchvideo(url, config, sub=True)
         else:
