@@ -21,7 +21,7 @@ volume = 0
 player = None
 
 DIR_PATH = os.path.dirname(os.path.abspath(__file__))
-# ENV = {**os.environ, 'DISPLAY': ':0'}
+ENV = {**os.environ, 'DISPLAY': ':0'}
 # Volume
 try:
     with open(os.path.join(DIR_PATH, "volume"), "r") as f:
