@@ -1,0 +1,158 @@
+pygame 1.9.4.post1
+Hello from the pygame community. https://www.pygame.org/contribute.html
+RaspberryCast - INFO - Server successfully started!
+'NoneType' object has no attribute 'quit'
+RaspberryCast - INFO - Extracting source video URL...
+RaspberryCast - INFO - Starting OMXPlayer now.
+RaspberryCast - INFO - Attempting to read resolution from configuration file.
+org.freedesktop.DBus.Error.NoReply: Message recipient disconnected from message bus without replying
+RaspberryCast - INFO - Playlist empty, skipping.
+omxplayer.player - INFO - OMXPlayer process is dead, all DBus calls from here will fail
+RaspberryCast - INFO - Received URL local open: https://www.youtube.com/watch?v=DXLmuDbcLBM
+RaspberryCast - INFO - Running synchronous shell command: vlc -f 'https://www.youtube.com/watch?v=DXLmuDbcLBM'
+RaspberryCast - INFO - Done; PID 28762
+RaspberryCast - INFO - Received URL local open: https://github.community/t/checkout-a-branch-from-a-fork/276/2
+RaspberryCast - INFO - Running synchronous shell command: chromium-browser 'https://github.community/t/checkout-a-branch-from-a-fork/276/2' --user-agent="Mozilla/5.0 (X11; CrOS armv7l 12371.89.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+
+RaspberryCast - INFO - Done; PID 29351
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/lib/python3.7/logging/__init__.py", line 1034, in emit
+    msg = self.format(record)
+  File "/usr/lib/python3.7/logging/__init__.py", line 880, in format
+    return fmt.format(record)
+  File "/usr/lib/python3.7/logging/__init__.py", line 619, in format
+    record.message = record.getMessage()
+  File "/usr/lib/python3.7/logging/__init__.py", line 380, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "server.py", line 54, in <module>
+    logger.info('args', sys.argv)
+Message: 'args'
+Arguments: (['server.py'],)
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/lib/python3.7/logging/__init__.py", line 1034, in emit
+    msg = self.format(record)
+  File "/usr/lib/python3.7/logging/__init__.py", line 880, in format
+    return fmt.format(record)
+  File "/usr/lib/python3.7/logging/__init__.py", line 619, in format
+    record.message = record.getMessage()
+  File "/usr/lib/python3.7/logging/__init__.py", line 380, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "server.py", line 54, in <module>
+    logger.info('args', sys.argv)
+Message: 'args'
+Arguments: (['server.py'],)
+/usr/lib/python3.7/subprocess.py:858: ResourceWarning: subprocess 28762 is still running
+  ResourceWarning, source=self)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/pi/NativCast/process.py:221: ResourceWarning: unclosed file <_io.TextIOWrapper name='/usr/share/applications/chromium-media-browser.desktop' mode='r' encoding='UTF-8'>
+  open_cmd = "vlc -f '{}'".format(url) if is_direct(url) else chromium_media_cmd(url)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.7/subprocess.py:858: ResourceWarning: subprocess 29351 is still running
+  ResourceWarning, source=self)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+omxplayer.player - ERROR - Could not find the process to kill
+sys:1: ResourceWarning: unclosed <socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 2020)>
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+Error: This script takes exactly one argument.
+The argument should be either 'start' or 'stop'.
+Checking for updates.
+Already up to date.
+Starting RaspberryCast server.
+Done.
+pygame 1.9.4.post1
+Hello from the pygame community. https://www.pygame.org/contribute.html
+RaspberryCast - INFO - Server successfully started!
+RaspberryCast - INFO - webstate
+RaspberryCast - INFO - webstate
+'NoneType' object has no attribute 'quit'
+RaspberryCast - INFO - Extracting source video URL...
+RaspberryCast - INFO - Starting OMXPlayer now.
+RaspberryCast - INFO - Attempting to read resolution from configuration file.
+org.freedesktop.DBus.Error.NoReply: Message recipient disconnected from message bus without replying
+RaspberryCast - INFO - Playlist empty, skipping.
+omxplayer.player - INFO - OMXPlayer process is dead, all DBus calls from here will fail
+omxplayer.player - ERROR - Could not find the process to kill
+Checking for updates.
+sys:1: ResourceWarning: unclosed <socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 2020)>
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+Already up to date.
+Starting RaspberryCast server.
+Done.
+pygame 1.9.4.post1
+Hello from the pygame community. https://www.pygame.org/contribute.html
+RaspberryCast - INFO - Server successfully started!
+RaspberryCast - INFO - webstate
+'NoneType' object has no attribute 'quit'
+RaspberryCast - INFO - Extracting source video URL...
+RaspberryCast - INFO - Starting OMXPlayer now.
+RaspberryCast - INFO - Attempting to read resolution from configuration file.
+org.freedesktop.DBus.Error.NoReply: Message recipient disconnected from message bus without replying
+RaspberryCast - INFO - Playlist empty, skipping.
+omxplayer.player - INFO - OMXPlayer process is dead, all DBus calls from here will fail
+omxplayer.player - ERROR - Could not find the process to kill
+Checking for updates.
+sys:1: ResourceWarning: unclosed <socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 2020)>
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+Already up to date.
+Starting RaspberryCast server.
+Done.
+pygame 1.9.4.post1
+Hello from the pygame community. https://www.pygame.org/contribute.html
+RaspberryCast - INFO - Server successfully started!
+RaspberryCast - INFO - webstate
+'NoneType' object has no attribute 'quit'
+RaspberryCast - INFO - Extracting source video URL...
+RaspberryCast - INFO - Starting OMXPlayer now.
+RaspberryCast - INFO - Attempting to read resolution from configuration file.
+org.freedesktop.DBus.Error.NoReply: Message recipient disconnected from message bus without replying
+RaspberryCast - INFO - Playlist empty, skipping.
+omxplayer.player - INFO - OMXPlayer process is dead, all DBus calls from here will fail
+omxplayer.player - ERROR - Could not find the process to kill
+Checking for updates.
+sys:1: ResourceWarning: unclosed <socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 2020)>
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+Already up to date.
+Starting RaspberryCast server.
+Done.
+pygame 1.9.4.post1
+Hello from the pygame community. https://www.pygame.org/contribute.html
+RaspberryCast - INFO - Server successfully started!
+'NoneType' object has no attribute 'quit'
+RaspberryCast - INFO - Extracting source video URL...
+RaspberryCast - INFO - Starting OMXPlayer now.
+RaspberryCast - INFO - Attempting to read resolution from configuration file.
+org.freedesktop.DBus.Error.NoReply: Message recipient disconnected from message bus without replying
+RaspberryCast - INFO - Playlist empty, skipping.
+omxplayer.player - INFO - OMXPlayer process is dead, all DBus calls from here will fail
+Checking for updates.
+Already up to date.
+Starting RaspberryCast server.
+Done.
+omxplayer.player - ERROR - Could not find the process to kill
+RaspberryCast - INFO - Extracting source video URL...
+RaspberryCast - INFO - Starting OMXPlayer now.
+RaspberryCast - INFO - Attempting to read resolution from configuration file.
+org.freedesktop.DBus.Error.NoReply: Message recipient disconnected from message bus without replying
+RaspberryCast - INFO - Playlist empty, skipping.
+omxplayer.player - INFO - OMXPlayer process is dead, all DBus calls from here will fail
+Checking for updates.
+Already up to date.
+Starting RaspberryCast server.
+Done.
+omxplayer.player - ERROR - Could not find the process to kill
+RaspberryCast - INFO - Extracting source video URL...
+RaspberryCast - INFO - Starting OMXPlayer now.
+RaspberryCast - INFO - Attempting to read resolution from configuration file.
+org.freedesktop.DBus.Error.NoReply: Message recipient disconnected from message bus without replying
+RaspberryCast - INFO - Playlist empty, skipping.
+omxplayer.player - INFO - OMXPlayer process is dead, all DBus calls from here will fail
+NativCast.sh: line 39: 29880 Killed                  ./server.py
+NativCast.sh: line 39: 29657 Killed                  ./server.py
+NativCast.sh: line 39: 29343 Killed                  ./server.py
+/usr/bin/sudo: /usr/bin/sudo: cannot execute binary file
