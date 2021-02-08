@@ -74,6 +74,7 @@ def server_static(filename):
 @app.route('/remote')
 def remote():
     os.system('/home/pi/sns.sh rear_movie')
+    os.system('xset s reset') # wake display
     logger.debug('Remote page requested.')
     return template('remote')
 
@@ -85,6 +86,7 @@ def home():
 @app.route('/local')
 def local():
     os.system('/home/pi/sns.sh rear_movie')
+    os.system('xset s reset') # wake display
     url = request.query['url']
     cmd = request.query['cmd']
     user = request.query['user']
@@ -95,6 +97,7 @@ def local():
 @app.route('/stream')
 def stream():
     os.system('/home/pi/sns.sh rear_movie')
+    os.system('xset s reset') # wake display
     url = request.query['url']
     logger.debug('Received URL to cast: '+url)
 
@@ -148,6 +151,7 @@ Replacing with remote IP.''')
 @app.route('/queue')
 def queue():
     os.system('/home/pi/sns.sh rear_movie')
+    os.system('xset s reset') # wake display
     url = request.query['url']
 
     if 'slow' in request.query:
