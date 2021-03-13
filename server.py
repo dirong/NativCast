@@ -198,27 +198,23 @@ def video():
     if control == "pause":
         logger.info('Command : pause')
         playeraction(PAUSE)
-        return "1"
     elif control in ["stop", "next"]:
         logger.info('Command : stop video')
         playeraction(EXIT)
-        return "1"
     elif control == "right":
         logger.info('Command : forward')
         playeraction(SEEK_FORWARD_SMALL)
-        return "1"
     elif control == "left":
         logger.info('Command : backward')
         playeraction(SEEK_BACK_SMALL)
-        return "1"
     elif control == "longright":
         logger.info('Command : long forward')
         playeraction(SEEK_FORWARD_LARGE)
-        return "1"
     elif control == "longleft":
         logger.info('Command : long backward')
         playeraction(SEEK_BACK_LARGE)
-        return "1"
+    playeraction(SHOW_INFO)
+    return "1"
 
 
 @app.post('/image')
