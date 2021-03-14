@@ -228,22 +228,23 @@ def video():
     control = request.query['control']
     if control == "pause":
         logger.info('Command : pause')
-        return playeraction(PAUSE)
+        playeraction(PAUSE)
     elif control in ["stop", "next"]:
         logger.info('Command : stop video')
-        return playeraction(EXIT)
+        playeraction(EXIT)
     elif control == "right":
         logger.info('Command : forward')
-        return playeraction(SEEK_FORWARD_SMALL)
+        playeraction(SEEK_FORWARD_SMALL)
     elif control == "left":
         logger.info('Command : backward')
-        return playeraction(SEEK_BACK_SMALL)
+        playeraction(SEEK_BACK_SMALL)
     elif control == "longright":
         logger.info('Command : long forward')
-        return playeraction(SEEK_FORWARD_LARGE)
+        playeraction(SEEK_FORWARD_LARGE)
     elif control == "longleft":
         logger.info('Command : long backward')
-        return playeraction(SEEK_BACK_LARGE)
+        playeraction(SEEK_BACK_LARGE)
+    return getposition()
 
 
 @app.post('/image')

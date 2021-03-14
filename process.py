@@ -127,7 +127,6 @@ def playeraction(action):
             player.seek(-60)
         else:
             player.action(action)
-        return getposition(player)
     except Exception as e:
         print(e)
     except:
