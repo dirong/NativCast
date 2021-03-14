@@ -15,6 +15,7 @@ from sonos_tasks import rear_movie
 
 from PIL import Image
 from omxplayer.player import OMXPlayer
+from omxplayer.keys import *
 
 logger = logging.getLogger("RaspberryCast")
 volume = 0
