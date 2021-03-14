@@ -90,7 +90,7 @@ def local():
     return "1"
 
 @app.route('/position')
-def position:
+def position():
     return getposition()
 
 @app.route('/stream')
