@@ -9,7 +9,7 @@ from bottle import Bottle, SimpleTemplate, request, response, \
                    template, run, static_file, BaseRequest
 from process import launchimage, launchvideo, queuevideo, playlist, \
                     setState, getState, setVolume, playeraction, launchhome, \
-                    openlocal, getposition
+                    openlocal, getposition, inspect
 
 from omxplayer.keys import *
 
@@ -72,6 +72,10 @@ def remote():
     os.system('xset s reset') # wake display
     logger.debug('Remote page requested.')
     return template('remote')
+
+@app.route('/trace')
+def trace():
+    inspect()
 
 @app.route('/home')
 def home():

@@ -140,7 +140,10 @@ def getposition():
         tot_fmt = time.strftime('%H:%M:%S', time.gmtime(tot))
         pos_fmt = time.strftime('%H:%M:%S', time.gmtime(pos))
         return "{} / {}".format(pos_fmt, tot_fmt)
-    
+        
+def inspect():
+    global player
+    import pdb; pdb.set_trace()
 
 def launchhome():
     global player
