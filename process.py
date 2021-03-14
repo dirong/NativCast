@@ -121,13 +121,27 @@ displaysurface(ready_surf, True)
 def playeraction(action):
     global player
     try:
-        player.action(action)
-        import pdb; pdb.set_trace()
+        if action == SEEK_FORWARD_LARGE: # action throws error
+            player.seek(60)
+        elif action == SEEK_BACK_LARGE: # action throws error
+            player.seek(-60)
+        else:
+            player.action(action)
+        return getposition(player)
     except Exception as e:
         print(e)
     except:
         raise
-
+    
+def getposition():
+    global player
+    tot = player.metadata()['mpris:length']/1000/1000
+    pos = player.position()
+    if pos and tot:
+        tot_fmt = time.strftime('%H:%M:%S', time.gmtime(tot))
+        pos_fmt = time.strftime('%H:%M:%S', time.gmtime(pos))
+        return "{} / {}".format(pos_fmt, tot_fmt)
+    
 
 def launchhome():
     global player
@@ -356,6 +370,9 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
         player = OMXPlayer(url, args)
 
     try:
+        os.system("sudo renice -12 -g `pgrep omx`")
+        logger.info("renice'd omx to -12")
+        
         while not player.playback_status() == "Stopped":  # Wait until video finished or stopped
             time.sleep(0.5)
     except Exception as e:

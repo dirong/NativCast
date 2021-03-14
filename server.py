@@ -9,7 +9,7 @@ from bottle import Bottle, SimpleTemplate, request, response, \
                    template, run, static_file, BaseRequest
 from process import launchimage, launchvideo, queuevideo, playlist, \
                     setState, getState, setVolume, playeraction, launchhome, \
-                    openlocal
+                    openlocal, getposition
 
 from omxplayer.keys import *
 
@@ -88,6 +88,10 @@ def local():
     ip = request.remote_route[0]
     openlocal(url, cmd, ip, user)
     return "1"
+
+@app.route('/position')
+def position:
+    return getposition()
 
 @app.route('/stream')
 def stream():
@@ -224,23 +228,22 @@ def video():
     control = request.query['control']
     if control == "pause":
         logger.info('Command : pause')
-        playeraction(PAUSE)
+        return playeraction(PAUSE)
     elif control in ["stop", "next"]:
         logger.info('Command : stop video')
-        playeraction(EXIT)
+        return playeraction(EXIT)
     elif control == "right":
         logger.info('Command : forward')
-        playeraction(SEEK_FORWARD_SMALL)
+        return playeraction(SEEK_FORWARD_SMALL)
     elif control == "left":
         logger.info('Command : backward')
-        playeraction(SEEK_BACK_SMALL)
+        return playeraction(SEEK_BACK_SMALL)
     elif control == "longright":
         logger.info('Command : long forward')
-        playeraction(SEEK_FORWARD_LARGE)
+        return playeraction(SEEK_FORWARD_LARGE)
     elif control == "longleft":
         logger.info('Command : long backward')
-        playeraction(SEEK_BACK_LARGE)
-    return getState()
+        return playeraction(SEEK_BACK_LARGE)
 
 
 @app.post('/image')
