@@ -121,6 +121,7 @@ def playeraction(action):
     global player
     try:
         player.action(action)
+        import pdb; pdb.set_trace()
     except Exception as e:
         print(e)
     except:
@@ -169,7 +170,6 @@ def launchimage(url):
         raise
 
     displayimage(os.path.join(DIR_PATH, "download", "image"))
-
 
 def launchvideo(url, config, sub=False):
     setState("2")

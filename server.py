@@ -240,7 +240,6 @@ def video():
     elif control == "longleft":
         logger.info('Command : long backward')
         playeraction(SEEK_BACK_LARGE)
-    import pdb; pdb.set_trace()
     return getState()
 
 
