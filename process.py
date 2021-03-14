@@ -134,12 +134,14 @@ def playeraction(action):
     
 def getposition():
     global player
-    tot = player.metadata()['mpris:length']/1000/1000
-    pos = player.position()
-    if pos and tot:
+    try:
+        tot = player.metadata()['mpris:length']/1000/1000
+        pos = player.position()
         tot_fmt = time.strftime('%H:%M:%S', time.gmtime(tot))
         pos_fmt = time.strftime('%H:%M:%S', time.gmtime(pos))
         return "{} / {}".format(pos_fmt, tot_fmt)
+    except:
+        return ""
         
 def inspect():
     global player
