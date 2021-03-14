@@ -4,12 +4,7 @@ import logging
 import os
 import sys
 import json
-try:
-    # this works in Python3
-    from urllib.request import urlretrieve
-except ImportError:
-    # this works in Python2
-    from urllib import urlretrieve
+from urllib.request import urlretrieve
 from bottle import Bottle, SimpleTemplate, request, response, \
                    template, run, static_file, BaseRequest
 from process import launchimage, launchvideo, queuevideo, playlist, \
@@ -194,6 +189,38 @@ def queue():
 
 @app.route('/video')
 def video():
+    # BLANK
+    # PREVIOUS_AUDIO
+    # DECREASE_SPEED
+    # PREVIOUS_CHAPTER
+    # DECREASE_SUBTITLE_DELAY  
+    # PREVIOUS_SUBTITLE
+    # DECREASE_VOLUME  
+    # REWIND
+    # EXIT
+    # SEEK_ABSOLUTE
+    # FAST_FORWARD
+    # SEEK_BACK_LARGE
+    # HIDE_SUBTITLES
+    # SEEK_BACK_SMALL
+    # HIDE_VIDEO
+    # SEEK_FORWARD_LARGE
+    # INCREASE_SPEED
+    # SEEK_FORWARD_SMALL
+    # INCREASE_SUBTITLE_DELAY  
+    # SEEK_RELATIVE
+    # INCREASE_VOLUME          
+    # SET_ALPHA
+    # MOVE_VIDEO
+    # SHOW_INFO
+    # NEXT_AUDIO
+    # SHOW_SUBTITLES
+    # NEXT_CHAPTER
+    # STEP
+    # NEXT_SUBTITLE
+    # TOGGLE_SUBTITLE
+    # PAUSE
+    # UNHIDE_VIDEO
     control = request.query['control']
     if control == "pause":
         logger.info('Command : pause')
@@ -213,8 +240,7 @@ def video():
     elif control == "longleft":
         logger.info('Command : long backward')
         playeraction(SEEK_BACK_LARGE)
-    playeraction(SHOW_INFO)
-    return "1"
+    return getState()
 
 
 @app.post('/image')

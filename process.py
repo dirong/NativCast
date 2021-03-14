@@ -280,12 +280,10 @@ def return_full_url(url, sub=False, slow_mode=False):
         if slow_mode:
             for i in video['formats']:
                 if i['format_id'] == "18":
-                    logger.debug(
-                        "Youtube link detected, extracting url in 360p")
+                    logger.debug("Youtube link detected, extracting url in 360p")
                     return i['url']
         else:
-            logger.debug('''CASTING: Youtube link detected.
-Extracting url in maximal quality.''')
+            logger.debug('''CASTING: Youtube link detected. Extracting url in maximal quality.''')
             for fid in ('22', '18', '36', '17'):
                 for i in video['formats']:
                     if i['format_id'] == fid:
@@ -301,12 +299,10 @@ Extracting url in maximal quality.''')
                     logger.debug("Vimeo link detected, extracting url in 360p")
                     return i['url']
         else:
-            logger.debug(
-                'Vimeo link detected, extracting url in maximal quality.')
+            logger.debug('Vimeo link detected, extracting url in maximal quality.')
             return video['url']
     else:
-        logger.debug('''Video not from Youtube or Vimeo.
-Extracting url in maximal quality.''')
+        logger.debug('''Video not from Youtube or Vimeo. Extracting url in maximal quality.''')
         return video['url']
 
 

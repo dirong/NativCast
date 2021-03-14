@@ -64,8 +64,7 @@ try:
 # If an IOException is caught, the file could not be found.
 # We then use the default values for the hostname and sub_search
 except IOError as e:
-    log("""INFO: Configuration file 'raspberrycast.conf' not found.
-Using default values.""")
+    log("""INFO: Configuration file 'raspberrycast.conf' not found. Using default values.""")
     ip = "raspberrypi.local:2020"
     search_for_subtitles = False
 
