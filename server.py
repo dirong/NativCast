@@ -14,7 +14,7 @@ from process import launchimage, launchvideo, queuevideo, playlist, \
 from omxplayer.keys import *
 
 # Maximum size of memory buffer for body in bytes
-BaseRequest.MEMFILE_MAX = 20 * 1024 * 1024  # 20MB
+BaseRequest.MEMFILE_MAX = 40 * 1024 * 1024  # 40MB
 
 # Setting log
 logging.basicConfig(
@@ -240,6 +240,7 @@ def video():
     elif control == "longleft":
         logger.info('Command : long backward')
         playeraction(SEEK_BACK_LARGE)
+    import pdb; pdb.set_trace()
     return getState()
 
 

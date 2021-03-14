@@ -305,7 +305,6 @@ def return_full_url(url, sub=False, slow_mode=False):
         logger.debug('''Video not from Youtube or Vimeo. Extracting url in maximal quality.''')
         return video['url']
 
-
 def playlist(url, cast_now, config):
     logger.info("Processing playlist.")
 
@@ -317,7 +316,6 @@ def playlist(url, cast_now, config):
 
     thread = threading.Thread(target=playlistToQueue, args=(url, config))
     thread.start()
-
 
 def playlistToQueue(url, config):
     logger.info("Adding every videos from playlist to queue.")
@@ -333,7 +331,6 @@ def playlistToQueue(url, config):
             logger.info("queuing video")
             if i != result['entries'][0]:
                 queuevideo(i['url'], config)
-
 
 def playWithOMX(url, sub, width="", height="", new_log=False):
     global player
@@ -390,11 +387,9 @@ def setState(state):
     # Write to file so it can be accessed from everywhere
     os.system("echo "+state+" > state.tmp")
 
-
 def getState():
     with open('state.tmp', 'r') as f:
         return f.read().replace('\n', '')
-
 
 def setVolume(vol):
     global volume
