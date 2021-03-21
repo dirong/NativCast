@@ -122,9 +122,13 @@ def playeraction(action):
     global player
     try:
         if action == SEEK_FORWARD_LARGE: # action throws error
-            player.seek(60)
+            player.seek(50)
         elif action == SEEK_BACK_LARGE: # action throws error
             player.seek(-60)
+        elif action == SEEK_FORWARD_SMALL: # action throws error
+            player.seek(10)
+        elif action == SEEK_BACK_SMALL: # action throws error
+            player.seek(-15)
         else:
             player.action(action)
     except Exception as e:
