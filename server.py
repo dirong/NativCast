@@ -247,7 +247,12 @@ def video():
         playeraction(SEEK_FORWARD_LARGE)
     elif control == "longleft":
         logger.info('Command : long backward')
-        playeraction(SEEK_BACK_LARGE)
+    elif control == "subs_toggle":
+        logger.info('Command : subtitles toggle')
+        playeraction(TOGGLE_SUBTITLE)
+    elif control == "subs_next":
+        logger.info('Command : subtitles next')
+        playeraction(NEXT_SUBTITLE)
     return getposition()
 
 

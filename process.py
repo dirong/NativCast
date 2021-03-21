@@ -370,12 +370,16 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
     setState("1")
     displaysurface(ready_surf, True)
     args = "-b" + resolution + " --vol " + str(volume) + " --orientation 180 " + " -o hdmi"
-    if sub:
-        player = OMXPlayer(url, args + " --subtitles subtitle.srt")
-    elif url is None:
+    # if sub:
+    #     player = OMXPlayer(url, args + " --subtitles subtitle.srt")
+    # elif url is None:
+    #     pass
+    # else:
+    #     player = OMXPlayer(url, args)
+    if url is None:
         pass
     else:
-        player = OMXPlayer(url, args)
+        player = OMXPlayer(url, args + " --subtitles subtitle.srt")
 
     try:
         os.system("sudo renice -12 -g `pgrep omx`")
