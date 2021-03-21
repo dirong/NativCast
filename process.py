@@ -150,7 +150,9 @@ def getposition():
         pos = player.position()
         tot_fmt = time.strftime('%H:%M:%S', time.gmtime(tot))
         pos_fmt = time.strftime('%H:%M:%S', time.gmtime(pos))
-        return "{} / {}".format(pos_fmt, tot_fmt)
+        pos_tot = "{} / {}".format(pos_fmt, tot_fmt)
+        title = getmeta('xesam:title')
+        return title + "\n\r" + pos_tot
     except:
         return ""
         
