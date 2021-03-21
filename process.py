@@ -135,6 +135,13 @@ def playeraction(action):
         print(e)
     except:
         raise
+
+def getmeta(meta):
+    global player
+    try:
+        return player.metadata()[meta]
+    except:
+        return ""
     
 def getposition():
     global player

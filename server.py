@@ -93,6 +93,10 @@ def local():
     openlocal(url, cmd, ip, user)
     return "1"
 
+@app.route('/meta')
+def meta():
+    return getmeta(request.query['tag'])
+
 @app.route('/position')
 def position():
     return getposition()
