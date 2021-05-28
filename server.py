@@ -257,7 +257,7 @@ def video():
     elif control == "subs_next":
         logger.info('Command : subtitles next')
         playeraction(NEXT_SUBTITLE)
-    return getposition()
+    return "1"
 
 
 @app.post('/image')
