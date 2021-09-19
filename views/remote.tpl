@@ -56,7 +56,7 @@
 				<div id="advanced" style="display:none">
 					<div>
 						<button id="prev_audio" type="button" title="Previous Audio" class="fifty btn btn-secondary">
-							<span class="tb">Previous Audio </span><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="tb"> Previous Audio</span>
 						</button>
 						<button id="next_audio" type="button" title="Next Audio" class="fifty btn btn-secondary">
 							<span class="tb">Next Audio </span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
