@@ -257,6 +257,12 @@ def video():
     elif control == "subs_next":
         logger.info('Command : subtitles next')
         playeraction(NEXT_SUBTITLE)
+    elif control == "prev_audio":
+        logger.info('Command : previous audio')
+        playeraction(PREVIOUS_AUDIO)
+    elif control == "next_audio":
+        logger.info('Command : next audio')
+        playeraction(NEXT_AUDIO)
     return "1"
 
 

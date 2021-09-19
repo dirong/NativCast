@@ -51,6 +51,14 @@
 						<span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
 					</button>
 				</div>
+				<div>
+					<button id="prev_audio" type="button" title="Previous Audio" class="fifty btn btn-primary">
+						<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+					</button>
+					<button id="next_audio" type="button" title="Next Audio" class="fifty btn btn-primary">
+						<span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+					</button>
+				</div>
 				<br>
 				<a id="link-text" onClick="advanced()">More options ▾</a>
 				<div id="advanced" style="display:none">

@@ -11,7 +11,6 @@ import logging
 import threading
 import youtube_dl
 from subprocess import Popen, DEVNULL
-from sonos_tasks import rear_movie
 
 from PIL import Image
 from omxplayer.player import OMXPlayer
@@ -367,7 +366,6 @@ def playlistToQueue(url, config):
 def playWithOMX(url, sub, width="", height="", new_log=False):
     global player
     logger.info("Starting OMXPlayer now.")
-    rear_movie(60)
 
     logger.info("Attempting to read resolution from configuration file.")
 
@@ -378,7 +376,7 @@ def playWithOMX(url, sub, width="", height="", new_log=False):
 
     setState("1")
     displaysurface(ready_surf, True)
-    args = "-b" + resolution + " --vol " + str(volume) + " --orientation 180 " + " -o hdmi"
+    args = "-b" + resolution + " --vol " + str(volume) + " -o hdmi"
     if sub:
         player = OMXPlayer(url, args + " --subtitles subtitle.srt")
     elif url is None:
