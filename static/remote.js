@@ -162,10 +162,10 @@ $(function() {
 	});
 	
 	$( "#prev_audio" ).click(function() {
-		mkrequest("/sound?control=prev_audio", 0);
+		mkrequest("/video?control=prev_audio", 0);
 	});
 
 	$( "#next_audio" ).click(function() {
-		mkrequest("/sound?control=next_audio", 0);
+		mkrequest("/video?control=next_audio", 0);
 	});
 });
