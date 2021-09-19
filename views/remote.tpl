@@ -51,17 +51,30 @@
 						<span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
 					</button>
 				</div>
-				<div>
-					<button id="prev_audio" type="button" title="Previous Audio" class="fifty btn btn-secondary">
-						<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-					</button>
-					<button id="next_audio" type="button" title="Next Audio" class="fifty btn btn-secondary">
-						<span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
-					</button>
-				</div>
 				<br>
 				<a id="link-text" onClick="advanced()">More options ▾</a>
 				<div id="advanced" style="display:none">
+					<div>
+						<button id="prev_audio" type="button" title="Previous Audio" class="fifty btn btn-secondary">
+							<span class="tb">Previous Audio </span><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						</button>
+						<button id="next_audio" type="button" title="Next Audio" class="fifty btn btn-secondary">
+							<span class="tb">Next Audio </span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						</button>
+					</div>
+					<div>
+						<button id="long-backward" type="button" title="Long skip backwards" class="fifty btn btn-info">
+							<span class="tb">
+								<span class="glyphicon glyphicon-backward  pull-left" aria-hidden="true"></span>
+								-10 minutes
+							</span>
+						</button>
+						<button id="long-forward" type="button" title="Long skip backwards" class="fifty btn btn-info">
+							<span class="tb">+10 minutes
+								<span class="glyphicon glyphicon-forward pull-right" aria-hidden="true"></span>
+							</span>
+						</button>
+					</div>
 					<form id="shut_form" class="form-inline">
 						<div class="form-group">
 							<div class="input-group">
@@ -76,19 +89,6 @@
 						</button>
 						<button id="nextqueue" type="button" title="Next video in playlist" class="fifty btn btn-primary">
 							<span class="tb">Next video </span><span class="glyphicon glyphicon-step-forward pull-right" aria-hidden="true"></span>
-						</button>
-					</div>
-					<div>
-						<button id="long-backward" type="button" title="Long skip backwards" class="fifty btn btn-info">
-							<span class="tb">
-								<span class="glyphicon glyphicon-backward  pull-left" aria-hidden="true"></span>
-								-10 minutes
-							</span>
-						</button>
-						<button id="long-forward" type="button" title="Long skip backwards" class="fifty btn btn-info">
-							<span class="tb">+10 minutes
-								<span class="glyphicon glyphicon-forward pull-right" aria-hidden="true"></span>
-							</span>
 						</button>
 					</div>
 					<!-- History and playlist management -->
